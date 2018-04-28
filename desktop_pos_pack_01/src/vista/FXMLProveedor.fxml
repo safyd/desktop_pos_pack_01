@@ -146,32 +146,56 @@
                      </children>
                   </AnchorPane>
                   <Label text="Telefono:" GridPane.columnIndex="5" GridPane.rowIndex="10" />
-                  <TextField fx:id="txtCodigoPostal" promptText="Codigo Postal" styleClass="last" GridPane.columnIndex="7">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtNumeroExterior" promptText="Numero Exterior" styleClass="last" GridPane.columnIndex="7" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtNumeroInterior" promptText="Numero Interior" styleClass="last" GridPane.columnIndex="7" GridPane.rowIndex="4">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtRegimenFiscal" promptText="Regimen Fiscal" styleClass="last" GridPane.columnIndex="7" GridPane.rowIndex="6">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="txtCorreo" promptText="Correo" styleClass="last" GridPane.columnIndex="7" GridPane.rowIndex="8">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField promptText="Descripción" GridPane.columnIndex="7" GridPane.rowIndex="10" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="10">
+                     <children>
+                        <TextField layoutX="43.0" layoutY="2.0" promptText="Descripción" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7">
+                     <children>
+                        <TextField fx:id="txtCodigoPostal" layoutX="-16.0" layoutY="-5.0" promptText="Codigo Postal" styleClass="last" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                     <children>
+                        <TextField fx:id="txtNumeroExterior" layoutY="4.0" promptText="Numero Exterior" styleClass="last" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
+                     <children>
+                        <TextField fx:id="txtNumeroInterior" layoutX="4.0" promptText="Numero Interior" styleClass="last" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="6">
+                     <children>
+                        <TextField fx:id="txtRegimenFiscal" layoutX="39.0" layoutY="1.0" promptText="Regimen Fiscal" styleClass="last" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="8">
+                     <children>
+                        <TextField fx:id="txtCorreo" layoutX="47.0" layoutY="-7.0" promptText="Correo" styleClass="last" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
                </children>
             </GridPane>
             <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -248,7 +272,7 @@
             </GridPane>
          </children>
       </GridPane>
-      <AnchorPane layoutX="165.0" layoutY="-86.0" prefHeight="50.0" style="-fx-background-color: #01A9DB;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="165.0" layoutY="-86.0" prefHeight="50.0" style="-fx-background-color: #088A08;" stylesheets="@../estilo/bootstrap.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="14.0" layoutY="17.0" text="Proveedor" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
                <font>

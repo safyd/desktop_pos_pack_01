@@ -288,7 +288,7 @@
             </GridPane>
          </children>
       </GridPane>
-      <AnchorPane layoutX="24.0" layoutY="-86.0" prefHeight="50.0" style="-fx-background-color: #01A9DB;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="24.0" layoutY="-86.0" prefHeight="50.0" style="-fx-background-color: #088A08;" stylesheets="@../estilo/bootstrap.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="14.0" layoutY="17.0" text="Usuario" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
                <font>
