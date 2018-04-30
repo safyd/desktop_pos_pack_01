@@ -72,16 +72,16 @@ public class FXMLUsuarioControlador extends Application implements Initializable
 
     }
 
-    private Boolean validarCampos() {
+    protected Boolean validarCampos() {
         return !(this.txtUsuario.getText().equals("") || this.txtNombre.getText().equals(""));
     }
 
-    private void guardarUsuario() {
+    protected void guardarUsuario() {
         if (this.validarCampos()) {
             usuario usu = new usuario();
             //usu.setPer_id();
-            if (this.convertirImagen(this.txtImagen.getText()) != null) {
-                usu.setUsu_imagen(convertirImagen(this.txtImagen.getText()));
+            if (utils.convertirImagen(this.txtImagen.getText()) != null) {
+                usu.setUsu_imagen(utils.convertirImagen(this.txtImagen.getText()));
             }
             usu.setUsu_usuario(this.txtUsuario.getText());
             usu.setUsu_contraseña(utils.Encriptar(this.txtContrasena.getText()));
@@ -98,21 +98,7 @@ public class FXMLUsuarioControlador extends Application implements Initializable
         }
     }
 
-    public byte[] convertirImagen(String urlImagen) {
-        try {
-            File fnew = new File(urlImagen);
-            BufferedImage originalImage = ImageIO.read(fnew);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(originalImage, "jpg", baos);
-            return baos.toByteArray();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLUsuarioControlador.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-
-    }
-
-    private void eventoBoton() {
+    protected void eventoBoton() {
         this.btnGuardar.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
                 this.guardarUsuario();
