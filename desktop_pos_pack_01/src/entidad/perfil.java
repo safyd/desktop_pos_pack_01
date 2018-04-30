@@ -12,6 +12,19 @@ public class perfil extends ORM<perfil> {
         super.setClass(this);
     }
 
+    public perfil(
+            Integer per_id,
+            String per_clave,
+            String per_descripcion
+    ) {
+
+        super.setClass(this);
+        this.per_id = per_id;
+        this.per_clave = per_clave;
+        this.per_descripcion = per_descripcion;
+
+    }
+
     public Integer getPer_id() {
         return per_id;
     }
@@ -34,6 +47,11 @@ public class perfil extends ORM<perfil> {
 
     public void setPer_descripcion(String per_descripcion) {
         this.per_descripcion = per_descripcion;
+    }
+
+    @Override
+    public String toString() {
+        return this.per_clave;
     }
 
 }

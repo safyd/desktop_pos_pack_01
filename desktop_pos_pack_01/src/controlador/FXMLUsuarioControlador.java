@@ -1,5 +1,6 @@
 package controlador;
 
+import entidad.perfil;
 import entidad.usuario;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
@@ -8,10 +9,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,12 +29,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -44,13 +52,18 @@ public class FXMLUsuarioControlador extends Application implements Initializable
     @FXML
     private ComboBox<String> cbxSexo;
     @FXML
-    private ComboBox<?> cbxPerfil;
+    private ComboBox<perfil> cbxPerfil;
     @FXML
     private PasswordField txtContrasena, txtConfirmarContrasena;
     @FXML
     private Button btnNuevo, btnImagen, btnGuardar, btnCancelar;
     @FXML
     private CheckBox ckbVerContrasena, ckbVerConfirmaContrasena;
+    @FXML
+    private Label lblMensajeContrasena;
+
+    private ObservableList<perfil> listaPerfil;
+    private perfil perfil = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -67,41 +80,55 @@ public class FXMLUsuarioControlador extends Application implements Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.txtImagen.setEditable(false);
+        this.listaPerfil = FXCollections.observableArrayList();
         this.cbxSexo.getItems().addAll("Hombre", "Mujer");
-        this.eventoBoton();
+        this.accionarEvento();
+        llenarComboBox();
 
     }
 
     protected Boolean validarCampos() {
-        return !(this.txtUsuario.getText().equals("") || this.txtNombre.getText().equals(""));
+        return !(this.perfil == null || this.txtUsuario.getText().equals("") || this.txtNombre.getText().equals(""));
     }
 
     protected void guardarUsuario() {
+
         if (this.validarCampos()) {
-            usuario usu = new usuario();
-            //usu.setPer_id();
-            if (utils.convertirImagen(this.txtImagen.getText()) != null) {
-                usu.setUsu_imagen(utils.convertirImagen(this.txtImagen.getText()));
-            }
-            usu.setUsu_usuario(this.txtUsuario.getText());
-            usu.setUsu_contraseña(utils.Encriptar(this.txtContrasena.getText()));
-            usu.setUsu_nombre(this.txtNombre.getText());
-            usu.setUsu_apellido(this.txtApellido.getText());
-            usu.setUsu_sexo(this.cbxSexo.getSelectionModel().getSelectedItem());
-            if (usu.insert()) {
-                utils.mensaje("Registro exitoso.", "El usuario ha sido registrado con exito.", Alert.AlertType.ERROR);
-            } else {
-                utils.mensaje("Error de registro.", "El usuario no se registro correctamente.", Alert.AlertType.ERROR);
+            if (this.confirmarContrasena(txtContrasena, txtConfirmarContrasena)) {
+                usuario usu = new usuario();
+                usu.setPer_id(this.perfil.getPer_id());
+                if (!this.txtImagen.getText().equals("")) {
+                    if (utils.convertirImagen(this.txtImagen.getText()) != null) {
+                        usu.setUsu_imagen(utils.convertirImagen(this.txtImagen.getText()));
+                    }
+                } else {
+                    usu.setUsu_imagen(null);
+                }
+
+                usu.setUsu_usuario(this.txtUsuario.getText());
+                usu.setUsu_contrasena(utils.Encriptar(this.txtContrasena.getText()));
+                usu.setUsu_nombre(this.txtNombre.getText());
+                usu.setUsu_apellido(this.txtApellido.getText());
+                usu.setUsu_sexo(this.cbxSexo.getSelectionModel().getSelectedItem());
+                if (usu.insert()) {
+                    utils.mensaje("Registro exitoso.", "El usuario ha sido registrado con exito.", Alert.AlertType.CONFIRMATION);
+                } else {
+                    utils.mensaje("Error de registro.", "El usuario no se registro correctamente.", Alert.AlertType.ERROR);
+                }
             }
         } else {
-            utils.mensaje("Faltan campos de llenar.", "Es necesario llenar los campos con asterisco", Alert.AlertType.ERROR);
+            utils.mensaje("Faltan campos de llenar.", "Es necesario llenar los campos con asterisco", Alert.AlertType.INFORMATION);
         }
+
     }
 
-    protected void eventoBoton() {
+    protected void accionarEvento() {
+        // BOTON GUARDAR
         this.btnGuardar.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
                 this.guardarUsuario();
+                this.limpiarCampos();
             } else {
                 event.consume();
             }
@@ -109,14 +136,49 @@ public class FXMLUsuarioControlador extends Application implements Initializable
         this.btnGuardar.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
                 this.guardarUsuario();
+                this.limpiarCampos();
             } else {
                 event.consume();
             }
         });
+        //BOTON CANCELAR
         this.btnCancelar.setOnMouseClicked((event) -> {
+            if (event.getClickCount() == 1) {
+                this.limpiarCampos();
+            } else {
+                event.consume();
+            }
+
         });
+        this.btnCancelar.setOnKeyPressed((event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                this.limpiarCampos();
+            } else {
+                event.consume();
+            }
+        });
+        this.btnNuevo.setOnMouseClicked((event) -> {
+            if (event.getClickCount() == 1) {
+                this.limpiarCampos();
+            } else {
+                event.consume();
+            }
+        });
+        this.btnNuevo.setOnKeyPressed((event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                this.limpiarCampos();
+            } else {
+                event.consume();
+            }
+        });
+        //BOTON IMAGEN
         this.btnImagen.setOnMouseClicked((event) -> {
-            this.obtenerImagen();
+            if (event.getClickCount() == 1) {
+                this.obtenerImagen();
+            } else {
+                event.consume();
+            }
+
         });
         this.btnImagen.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -125,6 +187,40 @@ public class FXMLUsuarioControlador extends Application implements Initializable
                 event.consume();
             }
         });
+        //CHECKBOX SELECCIONAR VER
+        this.ckbVerContrasena.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (this.ckbVerContrasena.isSelected()) {
+                this.ckbVerConfirmaContrasena.setSelected(false);
+                this.lblMensajeContrasena.setText(this.txtContrasena.getText());
+                this.lblMensajeContrasena.setTextFill(Color.rgb(0, 0, 0));
+            } else {
+                this.lblMensajeContrasena.setText("");
+            }
+        });
+        this.ckbVerConfirmaContrasena.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            if (this.ckbVerConfirmaContrasena.isSelected()) {
+                this.ckbVerContrasena.setSelected(false);
+                this.lblMensajeContrasena.setText(this.txtConfirmarContrasena.getText());
+                this.lblMensajeContrasena.setTextFill(Color.rgb(0, 0, 0));
+            } else {
+                this.lblMensajeContrasena.setText("");
+            }
+        });
+    }
+
+    private Boolean confirmarContrasena(PasswordField password, PasswordField rePassword) {
+        if (!rePassword.getText().equals(password.getText())) {
+            this.lblMensajeContrasena.setText("La contraseña no coincide.");
+            this.lblMensajeContrasena.setTextFill(Color.rgb(255, 0, 0));
+
+            return false;
+
+        } else {
+            this.lblMensajeContrasena.setText("Hecho.");
+            this.lblMensajeContrasena.setTextFill(Color.rgb(76, 187, 23));
+            return true;
+
+        }
 
     }
 
@@ -143,7 +239,44 @@ public class FXMLUsuarioControlador extends Application implements Initializable
             }
         } catch (IOException ex) {
             Logger.getLogger(FXMLUsuarioControlador.class.getName()).log(Level.SEVERE, null, ex);
+            utils.mensaje("Ha ocurrido un error", ex.toString(), Alert.AlertType.ERROR);
         }
+    }
+
+    protected void llenarComboBox() {
+        perfil per = new perfil();
+        if (per.get().size() <= 0) {
+            utils.mensaje("No hay perfiles", "Es necesario agregar como minímo un perfil\nEn caso de no tenerlo le sera imposible agregar un usuario.", Alert.AlertType.ERROR);
+        } else {
+            this.listaPerfil.clear();
+            per.get().forEach((perfil) -> {
+                this.listaPerfil.add(perfil);
+            });
+            this.cbxPerfil.setItems(this.listaPerfil);
+            this.cbxPerfil.valueProperty().addListener((ObservableValue<? extends Object> observable, Object oldValue, Object newValue) -> {
+                if (this.cbxPerfil.getSelectionModel().getSelectedIndex() == -1) {
+                } else {
+                    this.perfil = listaPerfil.get(cbxPerfil.getSelectionModel().getSelectedIndex());
+                }
+            });
+        }
+
+    }
+
+    protected void limpiarCampos() {
+        this.cbxPerfil.getSelectionModel().select(-1);
+        this.txtUsuario.setText("");
+        this.txtNombre.setText("");
+        this.txtApellido.setText("");
+        this.cbxSexo.getSelectionModel().select(-1);
+        this.txtContrasena.setText("");
+        this.txtConfirmarContrasena.setText("");
+        this.ckbVerConfirmaContrasena.setSelected(false);
+        this.ckbVerContrasena.setSelected(false);
+        this.txtImagen.setText("");
+        this.imgImagen.setImage(new Image(FXMLUsuarioControlador.class.getResourceAsStream("/imagen/imagen.jpg")));
+        this.cbxPerfil.requestFocus();
+        //this.cbxPerfil.show();
     }
 
 }

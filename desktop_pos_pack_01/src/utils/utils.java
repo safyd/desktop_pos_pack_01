@@ -29,6 +29,7 @@ public class utils {
         alert.setHeaderText(mensajeHed);
         alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(mensajeDia)));
         alert.showAndWait();
+        
 
     }
 

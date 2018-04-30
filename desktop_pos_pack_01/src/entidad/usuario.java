@@ -8,7 +8,7 @@ public class usuario extends ORM<usuario> {
     private Integer per_id;
     private byte[] usu_imagen;
     private String usu_usuario;
-    private String usu_contraseña;
+    private String usu_contrasena;
     private String usu_nombre;
     private String usu_apellido;
     private String usu_sexo;
@@ -57,14 +57,15 @@ public class usuario extends ORM<usuario> {
         this.usu_usuario = usu_usuario;
     }
 
-    public String getUsu_contraseña() {
-        return usu_contraseña;
+    public String getUsu_contrasena() {
+        return usu_contrasena;
     }
 
-    public void setUsu_contraseña(String usu_contraseña) {
-        this.usu_contraseña = usu_contraseña;
+    public void setUsu_contrasena(String usu_contrasena) {
+        this.usu_contrasena = usu_contrasena;
     }
 
+    
     public String getUsu_nombre() {
         return usu_nombre;
     }
