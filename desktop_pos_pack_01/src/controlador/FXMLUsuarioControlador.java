@@ -31,7 +31,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafxpixel.JavaFXPixel;
 import javax.imageio.ImageIO;
 import utils.uri;
 import utils.utils;
@@ -156,7 +155,7 @@ public class FXMLUsuarioControlador extends Application implements Initializable
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             this.imgImagen.setImage(image);
         } catch (IOException ex) {
-            Logger.getLogger(JavaFXPixel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLUsuarioControlador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
