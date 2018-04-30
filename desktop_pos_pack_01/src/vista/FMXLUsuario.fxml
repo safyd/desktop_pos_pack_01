@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
@@ -7,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="1024.0" stylesheets="@../../../com.safyd.diseño/bootstrap.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLUsuarioControlador">
    <children>
       <GridPane layoutX="71.0" layoutY="76.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
         <columnConstraints>
@@ -39,59 +40,37 @@
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Código postal:" GridPane.columnIndex="6">
+                  <Label text="Contraseña:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7">
-                     <children>
-                        <TextField editable="false" layoutY="9.0" promptText="Código postal" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <Label text="Contraseña:" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label text="Confirmar contraseña:" GridPane.columnIndex="6" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                     <children>
-                        <PasswordField layoutX="-22.0" layoutY="14.0" promptText="Contraseña" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
-                     <children>
-                        <PasswordField layoutX="14.0" layoutY="9.0" promptText="Confirmar contraseña" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <Label text="Dirección:">
+                  <Label text="Confirmar contraseña:" GridPane.columnIndex="6">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <TextField layoutY="9.0" promptText="Dirección" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <PasswordField fx:id="txtContrasena" layoutX="-22.0" layoutY="14.0" promptText="Contraseña" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7">
                      <children>
-                        <CheckBox layoutX="25.0" layoutY="6.0" mnemonicParsing="false" text="ver" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <PasswordField fx:id="txtConfirmarContrasena" layoutX="14.0" layoutY="9.0" promptText="Confirmar contraseña" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                      <children>
-                        <CheckBox layoutX="25.0" layoutY="6.0" mnemonicParsing="false" text="ver" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <CheckBox fx:id="ckbVerContrasena" layoutX="25.0" layoutY="6.0" mnemonicParsing="false" text="ver" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="9">
+                     <children>
+                        <CheckBox fx:id="ckbVerConfirmaContrasena" layoutX="25.0" layoutY="6.0" mnemonicParsing="false" text="ver" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -100,7 +79,7 @@
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="4.0" layoutY="21.0" mnemonicParsing="false" style="-: ;" styleClass="primary" text="Nuevo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="btnNuevo" layoutX="4.0" layoutY="21.0" mnemonicParsing="false" style="-: ;" styleClass="primary" text="Nuevo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -110,7 +89,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                      <children>
-                        <Button layoutX="-7.0" layoutY="10.0" mnemonicParsing="false" styleClass="danger" text="Cancelar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="btnCancelar" layoutX="-7.0" layoutY="10.0" mnemonicParsing="false" styleClass="danger" text="Cancelar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -119,7 +98,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
                      <children>
-                        <Button layoutX="37.0" layoutY="10.0" mnemonicParsing="false" styleClass="success" text="Guardar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="btnGuardar" layoutX="37.0" layoutY="10.0" mnemonicParsing="false" styleClass="success" text="Guardar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -172,19 +151,19 @@
                               <Label text="Imagen:" />
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                  <children>
-                                    <TextField layoutX="22.0" layoutY="14.0" promptText="Imagen" styleClass="first" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TextField fx:id="txtImagen" layoutX="22.0" layoutY="14.0" promptText="Imagen" styleClass="first" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                                  <children>
-                                    <Button layoutY="9.0" mnemonicParsing="false" styleClass="last" text=" " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Button fx:id="btnImagen" layoutY="9.0" mnemonicParsing="false" styleClass="last" text=" " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>
                         </GridPane>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgImagen" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../complemento/imagen/imagen.jpg" />
+                              <Image url="@../imagen/imagen.jpg" />
                            </image>
                            <effect>
                               <DropShadow />
@@ -200,11 +179,9 @@
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
@@ -212,72 +189,57 @@
                         <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Sucursal:">
+                        <Label text="Perfil:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                              <TextField layoutX="-9.0" layoutY="5.0" promptText="Sucursal" styleClass="first" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <TextField fx:id="txtPerfil" editable="false" layoutX="14.0" layoutY="2.0" promptText="Perfil" styleClass="first" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
-                        <Label text="Perfil:" GridPane.rowIndex="2">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                           <children>
+                              <Button fx:id="btnPerfil" layoutX="6.0" layoutY="23.0" mnemonicParsing="false" styleClass="last" text=" " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <children>
+                              <TextField fx:id="txtNombre" layoutX="93.0" layoutY="2.0" promptText="Nombre" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <Label text="Nombre:" GridPane.rowIndex="4">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Apellido:" GridPane.rowIndex="6">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                           <children>
+                              <TextField fx:id="txtApellido" layoutX="27.0" layoutY="24.0" promptText="Apellido" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                           <children>
+                              <ComboBox fx:id="cbxSexo" layoutY="5.0" prefWidth="150.0" promptText="Sexo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <Label text="Sexo:" GridPane.rowIndex="8">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
-                              <TextField layoutX="14.0" layoutY="2.0" promptText="Perfil" styleClass="first" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <TextField fx:id="txtUsuario" layoutX="27.0" layoutY="24.0" promptText="Usuario" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
-                           <children>
-                              <Button layoutY="9.0" mnemonicParsing="false" styleClass="last" text=" " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <children>
-                              <Button layoutX="6.0" layoutY="23.0" mnemonicParsing="false" styleClass="last" text=" " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <Label text="Clave:" GridPane.rowIndex="4">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                           <children>
-                              <TextField layoutX="14.0" layoutY="14.0" promptText="Clave" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                           <children>
-                              <TextField layoutX="93.0" layoutY="2.0" promptText="Nombre" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <Label text="Nombre:" GridPane.rowIndex="6">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label text="Apellido:" GridPane.rowIndex="8">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                           <children>
-                              <TextField layoutX="27.0" layoutY="24.0" promptText="Apellido" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
-                           <children>
-                              <ComboBox layoutY="5.0" prefWidth="150.0" promptText="Sexo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <Label text="Sexo:" GridPane.rowIndex="10">
+                        <Label text="Usuario:" GridPane.rowIndex="2">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -298,4 +260,8 @@
          </children>
       </AnchorPane>
    </children>
+   <stylesheets>
+      <URL value="@../../../com.safyd.diseño/bootstrap.css" />
+      <URL value="@../estilo/bootstrap.css" />
+   </stylesheets>
 </AnchorPane>

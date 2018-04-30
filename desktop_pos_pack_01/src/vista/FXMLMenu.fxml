@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.image.*?>
@@ -9,16 +10,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="664.0" prefWidth="1016.0" style="-fx-background-color: FFF;" stylesheets="@../../../com.safyd.diseño/bootstrap.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="649.0" style="-fx-background-color: FFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLMenuControlador">
    <children>
       <AnchorPane layoutX="174.0" layoutY="74.0" prefHeight="50.0" style="-fx-background-color: #088A08;" stylesheets="@../estilo/bootstrap.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="btn" fitHeight="50.0" fitWidth="50.0" layoutX="543.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ImageView fx:id="btnMenu" fitHeight="50.0" fitWidth="50.0" layoutX="543.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@../complemento/icono/menu.png" />
+                  <Image url="@../icono/menu.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="btn1" fitHeight="50.0" fitWidth="50.0" layoutX="553.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="panelPrincipal" layoutX="139.0" layoutY="248.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
@@ -26,90 +26,26 @@
          <children>
             <VBox>
                <children>
-                  <TitledPane animated="false" text="Compra">
+                  <TitledPane fx:id="tltPanelVenta" animated="false" text="Venta">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Elaborar compra" />
-                              <Button mnemonicParsing="false" text="Reporte compra" />
-                              <Button mnemonicParsing="false" text="etc" />
-                           </children>
-                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
                      </content>
                   </TitledPane>
-                  <TitledPane animated="false" text="Compra">
+                  <TitledPane fx:id="tltPanelCompra" animated="false" text="Compra">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Elaborar compra" />
-                              <Button mnemonicParsing="false" text="Reporte compra" />
-                              <Button mnemonicParsing="false" text="etc" />
-                           </children>
-                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
                      </content>
                   </TitledPane>
-                  <TitledPane animated="false" text="Compra">
+                  <TitledPane fx:id="tltPanelInventario" animated="false" text="Inventario">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Elaborar compra" />
-                              <Button mnemonicParsing="false" text="Reporte compra" />
-                              <Button mnemonicParsing="false" text="etc" />
-                           </children>
-                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
                      </content>
                   </TitledPane>
-                  <TitledPane animated="false" text="Compra">
+                  <TitledPane fx:id="tltPanelUsuario" animated="false" text="Control">
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Elaborar compra" />
-                              <Button mnemonicParsing="false" text="Reporte compra" />
-                              <Button mnemonicParsing="false" text="etc" />
-                           </children>
-                        </VBox>
-                     </content>
-                  </TitledPane>
-                  <TitledPane animated="false" text="Compra">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Elaborar compra" />
-                              <Button mnemonicParsing="false" text="Reporte compra" />
-                              <Button mnemonicParsing="false" text="etc" />
-                           </children>
-                        </VBox>
-                     </content>
-                  </TitledPane>
-                  <TitledPane animated="false" text="Compra">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Elaborar compra" />
-                              <Button mnemonicParsing="false" text="Reporte compra" />
-                              <Button mnemonicParsing="false" text="etc" />
-                           </children>
-                        </VBox>
-                     </content>
-                  </TitledPane>
-                  <TitledPane animated="false" text="Compra">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Elaborar compra" />
-                              <Button mnemonicParsing="false" text="Reporte compra" />
-                              <Button mnemonicParsing="false" text="etc" />
-                           </children>
-                        </VBox>
-                     </content>
-                  </TitledPane>
-                  <TitledPane animated="false" text="Compra">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Elaborar compra" />
-                              <Button mnemonicParsing="false" text="Reporte compra" />
-                              <Button mnemonicParsing="false" text="etc" />
+                              <Button fx:id="btnUsuario" mnemonicParsing="false" text="Usuario" />
                            </children>
                         </VBox>
                      </content>
@@ -118,4 +54,8 @@
          </children>
       </JFXDrawer>
    </children>
+   <stylesheets>
+      <URL value="@../../../com.safyd.diseño/bootstrap.css" />
+      <URL value="@../estilo/bootstrap.css" />
+   </stylesheets>
 </AnchorPane>

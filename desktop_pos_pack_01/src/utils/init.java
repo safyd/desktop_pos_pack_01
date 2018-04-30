@@ -10,8 +10,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;    
+import javafx.stage.Stage;
 
 public class init extends Application implements Initializable {
 
@@ -40,13 +41,21 @@ public class init extends Application implements Initializable {
 
     protected void accionEvento() {
         this.btnScreen.setOnMouseClicked((event) -> {
-        });
-        this.btnEntrar.setOnAction((event) -> {
+
         });
         this.btnEntrar.setOnKeyPressed((event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                System.out.println(event.getCode());
+            } else {
+                event.consume();
+            }
         });
         this.btnEntrar.setOnMouseClicked((event) -> {
-
+            if (event.getClickCount() == 1) {
+                System.out.println(event.getClickCount());
+            } else {
+                event.consume();
+            }
         });
     }
 

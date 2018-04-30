@@ -11,19 +11,6 @@ public class perfil extends ORM<perfil> {
     public perfil() {
         super.setClass(this);
     }
-// PARA CREAR CONSULTAS
-//    public perfil(
-//            Integer per_id,
-//            String per_clave,
-//            String per_descripcion
-//    ) {
-//
-//        super.setClass(this);
-//        this.per_id = per_id;
-//        this.per_clave = per_clave;
-//        this.per_descripcion = per_descripcion;
-//
-//    }
 
     public Integer getPer_id() {
         return per_id;
