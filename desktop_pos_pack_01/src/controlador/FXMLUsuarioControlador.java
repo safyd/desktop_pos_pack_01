@@ -38,15 +38,17 @@ import utils.utils;
 public class FXMLUsuarioControlador extends Application implements Initializable {
 
     @FXML
-    private TextField txtImagen, txtNombre, txtPerfil, txtApellido, txtUsuario;
+    private TextField txtImagen, txtNombre, txtApellido, txtUsuario;
     @FXML
     private ImageView imgImagen;
     @FXML
     private ComboBox<String> cbxSexo;
     @FXML
+    private ComboBox<?> cbxPerfil;
+    @FXML
     private PasswordField txtContrasena, txtConfirmarContrasena;
     @FXML
-    private Button btnNuevo, btnImagen, btnGuardar, btnPerfil, btnCancelar;
+    private Button btnNuevo, btnImagen, btnGuardar, btnCancelar;
     @FXML
     private CheckBox ckbVerContrasena, ckbVerConfirmaContrasena;
 
@@ -65,29 +67,22 @@ public class FXMLUsuarioControlador extends Application implements Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.txtPerfil.setEditable(false);
-        this.cbxSexo.getItems().addAll(
-                "Hombre",
-                "Mujer"
-        );
+        this.cbxSexo.getItems().addAll("Hombre", "Mujer");
         this.eventoBoton();
 
     }
 
     private Boolean validarCampos() {
-        if (this.txtPerfil.getText().equals("")
-                || this.txtUsuario.getText().equals("")
-                || this.txtNombre.getText().equals("")) {
-            return false;
-        }
-        return true;
+        return !(this.txtUsuario.getText().equals("") || this.txtNombre.getText().equals(""));
     }
 
     private void guardarUsuario() {
         if (this.validarCampos()) {
             usuario usu = new usuario();
             //usu.setPer_id();
-            //usu.setUsu_imagen();
+            if (this.convertirImagen(this.txtImagen.getText()) != null) {
+                usu.setUsu_imagen(convertirImagen(this.txtImagen.getText()));
+            }
             usu.setUsu_usuario(this.txtUsuario.getText());
             usu.setUsu_contraseña(utils.Encriptar(this.txtContrasena.getText()));
             usu.setUsu_nombre(this.txtNombre.getText());
@@ -103,17 +98,20 @@ public class FXMLUsuarioControlador extends Application implements Initializable
         }
     }
 
-//    public byte[] convertirImagen(String urlImagen) {
-//        try {
-//            File fnew = new File(urlImagen);
-//            BufferedImage originalImage = ImageIO.read(fnew);
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            ImageIO.write(originalImage, "jpg", baos);
-//            return baos.toByteArray();
-//        } catch (IOException ex) {
-//            Logger.getLogger(FXMLUsuarioControlador.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public byte[] convertirImagen(String urlImagen) {
+        try {
+            File fnew = new File(urlImagen);
+            BufferedImage originalImage = ImageIO.read(fnew);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(originalImage, "jpg", baos);
+            return baos.toByteArray();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLUsuarioControlador.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+
     private void eventoBoton() {
         this.btnGuardar.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
