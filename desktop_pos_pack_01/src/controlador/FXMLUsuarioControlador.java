@@ -151,10 +151,12 @@ public class FXMLUsuarioControlador extends Application implements Initializable
         fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
         File file = fileChooser.showOpenDialog(null);
         try {
-            BufferedImage bufferedImage = ImageIO.read(file);
-            this.txtImagen.setText(file.toString());
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            this.imgImagen.setImage(image);
+            if (file != null) {
+                BufferedImage bufferedImage = ImageIO.read(file);
+                this.txtImagen.setText(file.toString());
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                this.imgImagen.setImage(image);
+            }
         } catch (IOException ex) {
             Logger.getLogger(FXMLUsuarioControlador.class.getName()).log(Level.SEVERE, null, ex);
         }
