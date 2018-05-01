@@ -22,7 +22,15 @@ public class articulo extends ORM<articulo> {
     private Date fechaModificacion;
     private String usuarioCreacion;
     private String usuarioModificacion;
+   private  String art_proveedor;
 
+    public String getArt_proveedor() {
+        return art_proveedor;
+    }
+
+    public void setArt_proveedor(String art_proveedor) {
+        this.art_proveedor = art_proveedor;
+    }
     public articulo() {
         super.setClass(this);
     }
@@ -162,5 +170,7 @@ public class articulo extends ORM<articulo> {
     public void setUsuarioModificacion(String usuarioModificacion) {
         this.usuarioModificacion = usuarioModificacion;
     }
+
+   
 
 }
