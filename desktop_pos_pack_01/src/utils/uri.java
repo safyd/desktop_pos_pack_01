@@ -10,4 +10,5 @@ public class uri {
     public static final String MENU = "/vista/FXMLMenu.fxml";
     public static final String PROVEEDOR = "/vista/FXMLProveedor.fxml";
     public static final String ARTICULO = "/vista/FXMLArticulo.fxml";
+    
 }

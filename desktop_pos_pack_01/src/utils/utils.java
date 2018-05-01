@@ -29,7 +29,6 @@ public class utils {
         alert.setHeaderText(mensajeHed);
         alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(mensajeDia)));
         alert.showAndWait();
-        
 
     }
 
@@ -57,7 +56,7 @@ public class utils {
      * Este método encripta cadenas
      *
      * @param texto
-     * @return Una cadena encriptada
+     * @return Una cadena encriptada MD5 norma iso-8859-1
      */
     public static String Encriptar(String texto) {
         try {

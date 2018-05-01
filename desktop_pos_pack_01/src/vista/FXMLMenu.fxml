@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.net.*?>
 <?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
@@ -19,6 +20,11 @@
                   <Image url="@../icono/menu.png" />
                </image>
             </ImageView>
+            <Circle fx:id="cclIcono" fill="WHITE" radius="25.0" smooth="false" stroke="WHITE" strokeType="INSIDE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Circle>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="panelPrincipal" layoutX="139.0" layoutY="248.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
