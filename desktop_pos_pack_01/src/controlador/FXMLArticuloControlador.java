@@ -187,12 +187,11 @@ public class FXMLArticuloControlador extends Application implements Initializabl
     }
 
     protected void llenarComboBox() {
-        categoria art = new categoria();
-        if (art.get().size() <= 0) {
-            utils.mensaje("No hay perfiles", "Es necesario agregar como minímo un perfil\nEn caso de no tenerlo le sera imposible agregar un usuario.", Alert.AlertType.ERROR);
+        categoria cat = new categoria();
+        if (cat.get().size() <= 0) {      
         } else {
             this.listacategoria.clear();
-            art.get().forEach((Categoria) -> {
+            cat.get().forEach((Categoria) -> {
                 this.listacategoria.add(Categoria);
             });
             this.cbxCategoria.setItems(this.listacategoria);
