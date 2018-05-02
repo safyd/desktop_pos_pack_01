@@ -16,7 +16,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -82,8 +81,8 @@ public class FXMLArticuloControlador extends Application implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        this.cbxCategoria.getSelectionModel(). getSelectedItem();
-              this.listacategoria = FXCollections.observableArrayList();
-        
+        this.listacategoria = FXCollections.observableArrayList();
+
         this.eventoBoton();
 
     }
@@ -99,26 +98,24 @@ public class FXMLArticuloControlador extends Application implements Initializabl
                 || this.txtNombre.getText().equals("")
                 || this.txtPrecio.getText().equals("")
                 || this.cbxEstadoDelArticulo.isSelected()) {
-           
-        
+
         }
         {
             return false;
         }
-    
+
     }
 
     protected void PopupCategoria() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(uri.POPUP_CATEGORIA));
-            Parent root1 = (Parent) fxmlLoader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.POPUP_CATEGORIA));
+            AnchorPane pane = loader.load();
+            Scene scene = new Scene(pane);
             Stage stage = new Stage();
-            stage.setTitle("Categoria");
-            stage.setScene(new Scene(root1));
+            stage.setScene(scene);
             stage.show();
-        } catch (IOException e) {
-            System.out.println("cargar popup");
-
+        } catch (IOException ex) {
+            utils.mensaje("Error de popup", "Hay un error al cargar el popup\n" + ex.toString(), Alert.AlertType.ERROR);
         }
     }
 
@@ -188,7 +185,7 @@ public class FXMLArticuloControlador extends Application implements Initializabl
 
     protected void llenarComboBox() {
         categoria cat = new categoria();
-        if (cat.get().size() <= 0) {      
+        if (cat.get().size() <= 0) {
         } else {
             this.listacategoria.clear();
             cat.get().forEach((Categoria) -> {
@@ -205,7 +202,4 @@ public class FXMLArticuloControlador extends Application implements Initializabl
 
     }
 
-    private void accionarEvento() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

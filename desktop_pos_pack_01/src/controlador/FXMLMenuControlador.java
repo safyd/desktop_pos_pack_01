@@ -1,6 +1,8 @@
 package controlador;
 
 import com.jfoenix.controls.JFXDrawer;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 import utils.uri;
 
 public class FXMLMenuControlador extends Application implements Initializable {
@@ -43,6 +46,7 @@ public class FXMLMenuControlador extends Application implements Initializable {
         //BufferedImage bImage2 = ImageIO.read(bis);
         //Image card = SwingFXUtils.toFXImage(bImage2, null);
         //this.cclIcono.setFill(new ImagePattern(card));
+        //BufferedImage img = ImageIO.read(new ByteArrayInputStream(bytes));
 
     }
 
