@@ -11,4 +11,7 @@ public class uri {
     public static final String PROVEEDOR = "/vista/FXMLProveedor.fxml";
     public static final String ARTICULO = "/vista/FXMLArticulo.fxml";
     
+    //popup
+    
+    public static final String POPUP_CATEGORIA = "/vista/FXMLPopupCategoria.fxml";
 }

@@ -2,7 +2,7 @@ package controlador;
 
 import entidad.articulo;
 import entidad.categoria;
-import entidad.perfil;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -80,9 +81,9 @@ public class FXMLArticuloControlador extends Application implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.cbxCategoria.getSelectionModel(). getSelectedItem();
-        this.accionarEvento();
-        llenarComboBox();
+//        this.cbxCategoria.getSelectionModel(). getSelectedItem();
+              this.listacategoria = FXCollections.observableArrayList();
+        
         this.eventoBoton();
 
     }
@@ -104,7 +105,7 @@ public class FXMLArticuloControlador extends Application implements Initializabl
         {
             return false;
         }
-      
+    
     }
 
     protected void PopupCategoria() {
@@ -190,15 +191,15 @@ public class FXMLArticuloControlador extends Application implements Initializabl
         if (art.get().size() <= 0) {
             utils.mensaje("No hay perfiles", "Es necesario agregar como minímo un perfil\nEn caso de no tenerlo le sera imposible agregar un usuario.", Alert.AlertType.ERROR);
         } else {
-            this.listacategoria.clear();
+            this.listaPerfil.clear();
             art.get().forEach((Categoria) -> {
-                this.listacategoria.add(Categoria);
+                this.listaperfil.add(Categoria);
             });
-            this.cbxCategoria.setItems(this.listacategoria);
+            this.cbxCategoria.setItems(this.listaperfil);
             this.cbxCategoria.valueProperty().addListener((ObservableValue<? extends Object> observable, Object oldValue, Object newValue) -> {
                 if (this.cbxCategoria.getSelectionModel().getSelectedIndex() == -1) {
                 } else {
-                    this.categoria = listacategoria.get(cbxCategoria.getSelectionModel().getSelectedIndex());
+                    this.categoria = listaperfil.get(cbxCategoria.getSelectionModel().getSelectedIndex());
                 }
             });
         }
