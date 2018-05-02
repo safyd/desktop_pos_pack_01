@@ -191,15 +191,15 @@ public class FXMLArticuloControlador extends Application implements Initializabl
         if (art.get().size() <= 0) {
             utils.mensaje("No hay perfiles", "Es necesario agregar como minímo un perfil\nEn caso de no tenerlo le sera imposible agregar un usuario.", Alert.AlertType.ERROR);
         } else {
-            this.listaPerfil.clear();
+            this.listacategoria.clear();
             art.get().forEach((Categoria) -> {
-                this.listaperfil.add(Categoria);
+                this.listacategoria.add(Categoria);
             });
-            this.cbxCategoria.setItems(this.listaperfil);
+            this.cbxCategoria.setItems(this.listacategoria);
             this.cbxCategoria.valueProperty().addListener((ObservableValue<? extends Object> observable, Object oldValue, Object newValue) -> {
                 if (this.cbxCategoria.getSelectionModel().getSelectedIndex() == -1) {
                 } else {
-                    this.categoria = listaperfil.get(cbxCategoria.getSelectionModel().getSelectedIndex());
+                    this.categoria = listacategoria.get(cbxCategoria.getSelectionModel().getSelectedIndex());
                 }
             });
         }
