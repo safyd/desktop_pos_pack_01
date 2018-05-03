@@ -185,10 +185,10 @@ public class FXMLArticuloControlador extends Application implements Initializabl
 
     protected void llenarComboBox() {
         categoria cat = new categoria();
-        if (cat.get().size() <= 0) {
+        if (cat.obtenerTodos().size() <= 0) {
         } else {
             this.listacategoria.clear();
-            cat.get().forEach((Categoria) -> {
+            cat.obtenerTodos().forEach((Categoria) -> {
                 this.listacategoria.add(Categoria);
             });
             this.cbxCategoria.setItems(this.listacategoria);

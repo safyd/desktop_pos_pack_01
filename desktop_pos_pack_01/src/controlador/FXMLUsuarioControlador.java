@@ -77,7 +77,7 @@ public class FXMLUsuarioControlador extends Application implements Initializable
         this.listaPerfil = FXCollections.observableArrayList();
         this.cbxSexo.getItems().addAll("Hombre", "Mujer");
         this.accionarEvento();
-        llenarComboBox();
+        this.llenarComboBox();
 
     }
 
@@ -86,7 +86,6 @@ public class FXMLUsuarioControlador extends Application implements Initializable
     }
 
     protected void guardarUsuario() {
-
         if (this.validarCampos()) {
             if (this.confirmarContrasena(txtContrasena, txtConfirmarContrasena)) {
                 usuario usu = new usuario();
@@ -238,11 +237,11 @@ public class FXMLUsuarioControlador extends Application implements Initializable
 
     protected void llenarComboBox() {
         perfil per = new perfil();
-        if (per.get().size() <= 0) {
+        if (per.obtenerTodos().size() <= 0) {
             utils.mensaje("No hay perfiles", "Es necesario agregar como minímo un perfil\nEn caso de no tenerlo le sera imposible agregar un usuario.", Alert.AlertType.ERROR);
         } else {
             this.listaPerfil.clear();
-            per.get().forEach((perfil) -> {
+            per.obtenerTodos().forEach((perfil) -> {
                 this.listaPerfil.add(perfil);
             });
             this.cbxPerfil.setItems(this.listaPerfil);

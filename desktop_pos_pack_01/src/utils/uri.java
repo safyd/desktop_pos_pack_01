@@ -10,8 +10,8 @@ public class uri {
     public static final String MENU = "/vista/FXMLMenu.fxml";
     public static final String PROVEEDOR = "/vista/FXMLProveedor.fxml";
     public static final String ARTICULO = "/vista/FXMLArticulo.fxml";
-    
+    public static final String COMPANIA = "/vista/FXMLCompania.fxml";
+
     //popup
-    
     public static final String POPUP_CATEGORIA = "/vista/FMXLPopupCategoria.fxml";
 }

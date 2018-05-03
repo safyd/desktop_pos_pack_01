@@ -41,13 +41,7 @@ public class FXMLMenuControlador extends Application implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.controlTituloPanel();
         InputStream a = FXMLMenuControlador.class.getResourceAsStream("/imagen/imagen.jpg");
-        //byte[] A = utils.convertirImagen(a);
-        //ByteArrayInputStream bis = new ByteArrayInputStream(A);
-        //BufferedImage bImage2 = ImageIO.read(bis);
-        //Image card = SwingFXUtils.toFXImage(bImage2, null);
-        //this.cclIcono.setFill(new ImagePattern(card));
         //BufferedImage img = ImageIO.read(new ByteArrayInputStream(bytes));
-
     }
 
     private void controlTituloPanel() {
