@@ -9,9 +9,9 @@ public class Perfil extends ORM<Perfil> {
     private String per_descripcion;
 
     public Perfil() {
-        super.setClass(this);
+         super.setClass(this);
     }
-
+ 
     public Perfil(
             Integer per_id,
             String per_clave,
