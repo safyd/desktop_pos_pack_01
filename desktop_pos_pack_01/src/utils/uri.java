@@ -13,5 +13,5 @@ public class uri {
     public static final String COMPANIA = "/vista/FXMLCompania.fxml";
 
     //popup
-    public static final String POPUP_CATEGORIA = "/vista/FMXLPopupCategoria.fxml";
+    public static final String CATEGORIA = "/vista/FMXLPopupCategoria.fxml";
 }

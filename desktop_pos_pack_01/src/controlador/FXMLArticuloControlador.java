@@ -107,7 +107,7 @@ public class FXMLArticuloControlador extends Application implements Initializabl
 
     protected void PopupCategoria() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.POPUP_CATEGORIA));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.CATEGORIA));
             AnchorPane pane = loader.load();
             Scene scene = new Scene(pane);
             Stage stage = new Stage();
