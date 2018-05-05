@@ -253,8 +253,7 @@ public class utils {
     public void agregarLimiteCaracteres(TextField textField, int tamañoMaximo) {
         textField.textProperty().addListener((ObservableValue<? extends String> ov, String oldValue, String newValue) -> {
             if (textField.getText().length() > tamañoMaximo) {
-                String s = textField.getText().substring(0, tamañoMaximo);
-                textField.setText(s);
+                textField.setText(textField.getText().substring(0, tamañoMaximo));
             }
         });
     }
