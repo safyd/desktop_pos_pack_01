@@ -110,7 +110,7 @@ public class Compania extends ORM<Compania> {
     }
 
     public void setCom_no_exterior(Integer com_no_exterior) {
-        this.com_no_exterior = com_no_exterior;
-    }
-
+         this.com_no_exterior = com_no_exterior;
+    }   
+ 
 }
