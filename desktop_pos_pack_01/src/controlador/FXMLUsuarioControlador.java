@@ -1,6 +1,6 @@
 package controlador;
 
-import entidad.perfil;
+import entidad.Perfil;
 import entidad.usuario;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -45,7 +45,7 @@ public class FXMLUsuarioControlador extends Application implements Initializable
     @FXML
     private ComboBox<String> cbxSexo;
     @FXML
-    private ComboBox<perfil> cbxPerfil;
+    private ComboBox<Perfil> cbxPerfil;
     @FXML
     private PasswordField txtContrasena, txtConfirmarContrasena;
     @FXML
@@ -55,8 +55,8 @@ public class FXMLUsuarioControlador extends Application implements Initializable
     @FXML
     private Label lblMensajeContrasena;
 
-    private ObservableList<perfil> listaPerfil;
-    private perfil perfil = null;
+    private ObservableList<Perfil> listaPerfil;
+    private Perfil perfil = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -105,6 +105,7 @@ public class FXMLUsuarioControlador extends Application implements Initializable
                 usu.setUsu_sexo(this.cbxSexo.getSelectionModel().getSelectedItem());
                 if (usu.insert()) {
                     utils.mensaje("Registro exitoso.", "El usuario ha sido registrado con exito.", Alert.AlertType.CONFIRMATION);
+                    this.limpiarCampos();
                 } else {
                     utils.mensaje("Error de registro.", "El usuario no se registro correctamente.", Alert.AlertType.ERROR);
                 }
@@ -116,11 +117,9 @@ public class FXMLUsuarioControlador extends Application implements Initializable
     }
 
     protected void accionarEvento() {
-        // BOTON GUARDAR
         this.btnGuardar.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
                 this.guardarUsuario();
-                this.limpiarCampos();
             } else {
                 event.consume();
             }
@@ -128,12 +127,11 @@ public class FXMLUsuarioControlador extends Application implements Initializable
         this.btnGuardar.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
                 this.guardarUsuario();
-                this.limpiarCampos();
             } else {
                 event.consume();
             }
         });
-        //BOTON CANCELAR
+
         this.btnCancelar.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
                 this.limpiarCampos();
@@ -163,7 +161,6 @@ public class FXMLUsuarioControlador extends Application implements Initializable
                 event.consume();
             }
         });
-        //BOTON IMAGEN
         this.btnImagen.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
                 this.obtenerImagen();
@@ -236,13 +233,13 @@ public class FXMLUsuarioControlador extends Application implements Initializable
     }
 
     protected void llenarComboBox() {
-        perfil per = new perfil();
+        Perfil per = new Perfil();
         if (per.obtenerTodos().size() <= 0) {
             utils.mensaje("No hay perfiles", "Es necesario agregar como minímo un perfil\nEn caso de no tenerlo le sera imposible agregar un usuario.", Alert.AlertType.ERROR);
         } else {
             this.listaPerfil.clear();
-            per.obtenerTodos().forEach((perfil) -> {
-                this.listaPerfil.add(perfil);
+            per.obtenerTodos().forEach((perfiles) -> {
+                this.listaPerfil.add(perfiles);
             });
             this.cbxPerfil.setItems(this.listaPerfil);
             this.cbxPerfil.valueProperty().addListener((ObservableValue<? extends Object> observable, Object oldValue, Object newValue) -> {

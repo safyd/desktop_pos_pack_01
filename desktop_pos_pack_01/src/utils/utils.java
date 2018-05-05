@@ -1,21 +1,164 @@
 package utils;
 
 import controlador.FXMLUsuarioControlador;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.WritableImage;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class utils {
+
+    /**
+     * Localización de archivo para configuración
+     */
+    protected static final String ARCHIVO_CONFIGURACION = "propiedades.sistema.properties";
+
+    /**
+     * Este método cuestiona la existencía del archivo configuración
+     *
+     * @return regresa false si no existe de lo contrario un true
+     */
+    public static Boolean existePropiedad() {
+        File f = new File(utils.ARCHIVO_CONFIGURACION);
+        return f.exists();
+    }
+
+    /**
+     * Este método obtiene las propiedades del archivo
+     *
+     * @param llave
+     * @return regresa el dato obtenido por medio de la llave
+     */
+    public static String obtenerPropiedad(String llave) {
+        InputStream input = null;
+        Properties prop = new Properties();
+        try {
+            prop.load(new FileInputStream(new File(utils.ARCHIVO_CONFIGURACION)));
+            if (prop.containsKey(llave)) {
+                return prop.getProperty(llave);
+            } else {
+                return "";
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return "";
+    }
+
+    /**
+     * Este método elimina las propiedades del archivo
+     *
+     * @param llave
+     */
+    public static void eliminarPropiedad(String llave) {
+        InputStream input = null;
+        Properties prop = new Properties();
+        try {
+            prop.load(new FileInputStream(new File(utils.ARCHIVO_CONFIGURACION)));
+            if (prop.containsKey(llave)) {
+                prop.remove(llave);
+            } else {
+
+            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    /**
+     * Este método crea el archivo de propiedad
+     *
+     * @return verdadero en caso de ser creado en caso contrario falso
+     */
+    public static Boolean crearArchivo() {
+        try {
+            File f = new File(utils.ARCHIVO_CONFIGURACION);
+            if (!f.exists()) {
+                f.createNewFile();
+                return true;
+            } else {
+                return true;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(utils.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    /**
+     * Este método agregar propiedades al archivo
+     *
+     * @param llave
+     * @param valor
+     */
+    public static void agregarPropiedad(String llave, String valor) {
+        Properties prop = new Properties();
+        OutputStream output = null;
+        InputStream input = null;
+        try {
+            File f = new File(utils.ARCHIVO_CONFIGURACION);
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+            input = new FileInputStream(f);
+            prop.load(input);
+            prop.setProperty(llave, valor);
+            output = new FileOutputStream(f);
+            prop.store(output, null);
+            output.flush();
+        } catch (IOException io) {
+            io.printStackTrace();
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     /**
      * Este método crea mensaje para javaFX
@@ -40,16 +183,28 @@ public class utils {
      */
     public static byte[] convertirImagen(String urlImagen) {
         try {
-            File fnew = new File(urlImagen);
-            BufferedImage originalImage = ImageIO.read(fnew);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(originalImage, "JPEG, PNG", baos);
-            return baos.toByteArray();
+            File archivo = new File(urlImagen);
+            BufferedImage originalImage = ImageIO.read(archivo);
+            ByteArrayOutputStream arrayByte = new ByteArrayOutputStream();
+            ImageIO.write(originalImage, "JPEG, PNG", arrayByte);
+            return arrayByte.toByteArray();
         } catch (IOException ex) {
             Logger.getLogger(FXMLUsuarioControlador.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
 
+    }
+    BufferedImage bImageFromConvert = null;
+
+    public static javafx.scene.image.Image obtenerImagen(byte[] arrayByte) {
+        //BufferedImage bufferedImage = ImageIO.read(obtenerInputStream(arrayByte));
+        //return SwingFXUtils.toFXImage(bufferedImage, null);
+        return new javafx.scene.image.Image(obtenerInputStream(arrayByte));
+
+    }
+
+    public static InputStream obtenerInputStream(byte[] array) {
+        return new ByteArrayInputStream(array);
     }
 
     /**
@@ -72,7 +227,7 @@ public class utils {
         return null;
     }
 
-    private static String convertToHex(byte[] data) {
+    protected static String convertToHex(byte[] data) {
         StringBuilder buf = new StringBuilder();
         for (int i = 0; i < data.length; i++) {
             int halfbyte = (data[i] >>> 4) & 0x0F;
@@ -88,4 +243,46 @@ public class utils {
         }
         return buf.toString();
     }
+
+    /**
+     * Este método limita la cantidad de caracteres ingresados en el TextField
+     *
+     * @param textField objeto TextField
+     * @param tamañoMaximo tamaño máximo de caracteres a ingresar
+     */
+    public void agregarLimiteCaracteres(TextField textField, int tamañoMaximo) {
+        textField.textProperty().addListener((ObservableValue<? extends String> ov, String oldValue, String newValue) -> {
+            if (textField.getText().length() > tamañoMaximo) {
+                String s = textField.getText().substring(0, tamañoMaximo);
+                textField.setText(s);
+            }
+        });
+    }
+
+    /**
+     * Este método limitá el uso de caracteres no números ingresados
+     *
+     * @param textField objeto TextField
+     */
+    public void validarNumeros(TextField textField) {
+        textField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+    }
+
+    /**
+     * Este método limitá el uso de caracteres no números con decimal ingresados
+     *
+     * @param textField objeto TextField
+     */
+    public void validarNumerosDecimal(TextField textField) {
+        textField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d*(\\.\\d*)?")) {
+                textField.setText(oldValue);
+            }
+        });
+    }
+
 }
