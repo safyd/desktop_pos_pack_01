@@ -1,7 +1,7 @@
 package controlador;
 
 import entidad.Perfil;
-import entidad.usuario;
+import entidad.Usuario;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -88,7 +88,7 @@ public class FXMLUsuarioControlador extends Application implements Initializable
     protected void guardarUsuario() {
         if (this.validarCampos()) {
             if (this.confirmarContrasena(txtContrasena, txtConfirmarContrasena)) {
-                usuario usu = new usuario();
+                Usuario usu = new Usuario();
                 usu.setPer_id(this.perfil.getPer_id());
                 if (!this.txtImagen.getText().equals("")) {
                     if (utils.convertirImagen(this.txtImagen.getText()) != null) {

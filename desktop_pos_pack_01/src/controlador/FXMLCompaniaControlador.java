@@ -1,7 +1,6 @@
 package controlador;
 
 import entidad.Compania;
-import entidad.usuario;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
