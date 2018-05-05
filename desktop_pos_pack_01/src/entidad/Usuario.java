@@ -12,7 +12,7 @@ public class Usuario extends ORM<Usuario> {
     private String usu_nombre;
     private String usu_apellido;
     private String usu_sexo;
-
+   
     public Usuario() {
         super.setClass(this);
     }
