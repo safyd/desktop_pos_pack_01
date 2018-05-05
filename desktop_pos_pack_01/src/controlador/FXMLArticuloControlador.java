@@ -19,7 +19,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -80,10 +79,10 @@ public class FXMLArticuloControlador extends Application implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        this.cbxCategoria.getSelectionModel(). getSelectedItem();
+        this.cbxCategoria.getSelectionModel().getSelectedItem();
         this.listacategoria = FXCollections.observableArrayList();
-
         this.eventoBoton();
+        this.llenarComboBox();
 
     }
 
@@ -96,12 +95,12 @@ public class FXMLArticuloControlador extends Application implements Initializabl
                 || this.txtProveedor.getText().equals("")
                 || this.txtDescripcion.getText().equals("")
                 || this.txtNombre.getText().equals("")
-                || this.txtPrecio.getText().equals("")
-                || this.cbxEstadoDelArticulo.isSelected()) {
+                || this.txtPrecio.getText().equals("")) {
 
-        }
-        {
             return false;
+        }else
+        {
+            return true;
         }
 
     }
@@ -122,8 +121,8 @@ public class FXMLArticuloControlador extends Application implements Initializabl
     private void guardarArticulo() {
         if (this.validarCampos()) {
             articulo art = new articulo();
-            //usu.setPer_id();
-            //usu.setUsu_imagen();
+            art.setCat_id(this.categoria.getCat_id());
+            art.setArt_imagen(utils.convertirImagen(this.txtImagen.getText()));
             art.setArt_nombre(this.txtNombre.getText());
             art.setArt_unidad_medida(utils.Encriptar(this.txtUnidadDeCompra.getText()));
             art.setArt_codigo(this.txtCodigo.getText());
