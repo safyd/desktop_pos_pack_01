@@ -30,19 +30,19 @@ import utils.uri;
 import utils.utils;
 
 public class FXMLCompaniaControlador extends Application implements Initializable {
-
+    
     @FXML
-    private TextField txtNombre, txtImagen, txtDireccion, txtNumeroExterior, txtCodigoPostal, txtEstado, txtCiudad, txtNumeroInterior;
+    private TextField txtNombre, txtImagen, txtDireccion, txtTelefono, txtNumeroExterior, txtCodigoPostal, txtEstado, txtCiudad, txtNumeroInterior;
     @FXML
     private ImageView imgImagen;
     @FXML
-    private Button btnGuardar, btnEditar, btnImagen;
+    private Button btnGuardar, btnEditar, btnImagen, btnCancelar;
     Compania compania = null;
-
+    
     public static void main(String[] args) {
         launch(args);
     }
-
+    
     @Override
     public void start(Stage stage) {
         try {
@@ -55,19 +55,20 @@ public class FXMLCompaniaControlador extends Application implements Initializabl
             Logger.getLogger(FXMLCompaniaControlador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.accionarEvento();
         this.obtenerCompania();
-
+        this.valirdarCamposTipo();
+        
     }
-
+    
     protected void accionarEvento() {
         this.btnGuardar.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
                 this.guardarCompania();
-
+                
             } else {
                 event.consume();
             }
@@ -75,7 +76,7 @@ public class FXMLCompaniaControlador extends Application implements Initializabl
         this.btnGuardar.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
                 this.guardarCompania();
-
+                
             } else {
                 event.consume();
             }
@@ -86,7 +87,7 @@ public class FXMLCompaniaControlador extends Application implements Initializabl
             } else {
                 event.consume();
             }
-
+            
         });
         this.btnEditar.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -101,7 +102,7 @@ public class FXMLCompaniaControlador extends Application implements Initializabl
             } else {
                 event.consume();
             }
-
+            
         });
         this.btnImagen.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -110,9 +111,36 @@ public class FXMLCompaniaControlador extends Application implements Initializabl
                 event.consume();
             }
         });
-
+        this.btnCancelar.setOnKeyPressed((event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                this.recargarValores();
+            } else {
+                event.consume();
+            }
+        });
+        this.btnCancelar.setOnMouseClicked((event) -> {
+            if (event.getClickCount() == 1) {
+                this.recargarValores();
+            } else {
+                event.consume();
+            }
+        });
+        
     }
-
+    
+    protected void recargarValores() {
+        this.txtCiudad.setText("");
+        this.txtCodigoPostal.setText("");
+        this.txtDireccion.setText("");
+        this.txtEstado.setText("");
+        this.txtImagen.setText("");
+        this.txtNombre.setText("");
+        this.txtNumeroExterior.setText("");
+        this.txtNumeroInterior.setText("");
+        this.txtTelefono.setText("");
+        this.obtenerCompania();
+    }
+    
     protected void editarCompania() {
         this.txtNombre.setEditable(true);
         this.txtImagen.setEditable(true);
@@ -122,10 +150,11 @@ public class FXMLCompaniaControlador extends Application implements Initializabl
         this.txtEstado.setEditable(true);
         this.txtCiudad.setEditable(true);
         this.txtNumeroInterior.setEditable(true);
+        this.txtTelefono.setEditable(true);
         this.txtNombre.requestFocus();
     }
-
-    protected Boolean validarCampos() {
+    
+    protected Boolean validarCamposVacios() {
         return !(this.txtNombre.getText().equals("")
                 || this.txtDireccion.getText().equals("")
                 || this.txtCodigoPostal.getText().equals("")
@@ -134,45 +163,94 @@ public class FXMLCompaniaControlador extends Application implements Initializabl
                 || this.txtEstado.getText().equals("")
                 || this.txtCiudad.getText().equals(""));
     }
-
+    
+    protected void valirdarCamposTipo() {
+        utils.validarNumeros(this.txtNumeroExterior);
+        utils.validarNumeros(this.txtNumeroInterior);
+        utils.validarNumeros(this.txtCodigoPostal);
+        
+    }
+    
     protected void guardarCompania() {
-        if (this.validarCampos()) {
-            Compania com = new Compania();
-            com.setCom_nombre(this.txtNombre.getText());
-            if (!this.txtImagen.getText().equals("")) {
-                if (utils.convertirImagen(this.txtImagen.getText()) != null) {
-                    com.setCom_imagen(utils.convertirImagen(this.txtImagen.getText()));
+        if (this.obtenerCompania()) {
+            if (this.validarCamposVacios()) {
+                this.compania = new Compania();
+                this.compania.setCom_nombre(this.txtNombre.getText());
+                if (!this.txtImagen.getText().equals("")) {
+                    if (utils.convertirImagen(this.txtImagen.getText()) != null) {
+                        this.compania.setCom_imagen(utils.convertirImagen(this.txtImagen.getText()));
+                    }
+                } else {
+                    this.compania.setCom_imagen(null);
+                }
+                this.compania.setCom_telefono(this.txtTelefono.getText());
+                this.compania.setCom_direccion(this.txtDireccion.getText());
+                this.compania.setCom_no_exterior(Integer.parseInt(this.txtNumeroExterior.getText()));
+                this.compania.setCom_no_interior(Integer.parseInt(this.txtNumeroInterior.getText()));
+                this.compania.setCom_cp(this.txtCodigoPostal.getText());
+                this.compania.setCom_estado(this.txtEstado.getText());
+                this.compania.setCom_ciudad(this.txtCiudad.getText());
+                if (this.compania.insert()) {
+                    utils.mensaje("Registro exitoso.", "La compañía ha sido registrada con exito.", Alert.AlertType.CONFIRMATION);
+                } else {
+                    utils.mensaje("Error de registro.", "LA compañía no se registro correctamente.", Alert.AlertType.ERROR);
                 }
             } else {
-                com.setCom_imagen(null);
+                utils.mensaje("Faltan campos de llenar.", "Es necesario llenar los campos con asterisco", Alert.AlertType.INFORMATION);
             }
-            com.setCom_direccion(this.txtDireccion.getText());
-            com.setCom_no_exterior(Integer.parseInt(this.txtNumeroExterior.getText()));
-            com.setCom_no_interior(Integer.parseInt(this.txtNumeroInterior.getText()));
-            com.setCom_cp(this.txtCodigoPostal.getText());
-            com.setCom_estado(this.txtEstado.getText());
-            com.setCom_ciudad(this.txtCiudad.getText());
-            if (com.insert()) {
-                utils.mensaje("Registro exitoso.", "El usuario ha sido registrado con exito.", Alert.AlertType.CONFIRMATION);
-            } else {
-                utils.mensaje("Error de registro.", "El usuario no se registro correctamente.", Alert.AlertType.ERROR);
-            }
+            
         } else {
-            utils.mensaje("Faltan campos de llenar.", "Es necesario llenar los campos con asterisco", Alert.AlertType.INFORMATION);
+            if (this.validarCamposVacios()) {
+                this.compania.setCom_id(this.compania.getCom_id());
+                this.compania.setCom_nombre(this.txtNombre.getText());
+                if (!this.txtImagen.getText().equals("")) {
+                    if (utils.convertirImagen(this.txtImagen.getText()) != null) {
+                        this.compania.setCom_imagen(utils.convertirImagen(this.txtImagen.getText()));
+                    }
+                } else {
+                    this.compania.setCom_imagen(null);
+                }
+                this.compania.setCom_telefono(this.txtTelefono.getText());
+                this.compania.setCom_direccion(this.txtDireccion.getText());
+                this.compania.setCom_no_exterior(Integer.parseInt(this.txtNumeroExterior.getText()));
+                this.compania.setCom_no_interior(Integer.parseInt(this.txtNumeroInterior.getText()));
+                this.compania.setCom_cp(this.txtCodigoPostal.getText());
+                this.compania.setCom_estado(this.txtEstado.getText());
+                this.compania.setCom_ciudad(this.txtCiudad.getText());
+                if (this.compania.update()) {
+                    utils.mensaje("Modificación exitosa.", "La compañía se modificó correctamente.", Alert.AlertType.CONFIRMATION);
+                } else {
+                    utils.mensaje("Error de Modificación.", "La compañía no se modificó correctamente.", Alert.AlertType.ERROR);
+                }
+            } else {
+                utils.mensaje("Faltan campos de llenar.", "Es necesario llenar los campos con asterisco", Alert.AlertType.INFORMATION);
+            }
         }
-        {
+        
+    }
+    
+    protected Boolean obtenerCompania() {
+        ArrayList<Compania> listCom = new Compania().obtenerTodos();
+        if (listCom.isEmpty()) {
+            return true;
+        } else {
+            listCom.forEach((com) -> {
+                this.compania = com;
+                this.imgImagen.setImage(utils.obtenerImagen(com.getCom_imagen()));
+                this.txtCiudad.setText(com.getCom_ciudad());
+                this.txtCodigoPostal.setText(com.getCom_cp());
+                this.txtDireccion.setText(com.getCom_direccion());
+                this.txtEstado.setText(com.getCom_estado());
+                this.txtImagen.setText("");
+                this.txtTelefono.setText(com.getCom_telefono());
+                this.txtNombre.setText(com.getCom_nombre());
+                this.txtNumeroExterior.setText(com.getCom_no_exterior().toString());
+                this.txtNumeroInterior.setText(com.getCom_no_interior().toString());
+            });
+            return false;
         }
     }
-
-    protected void obtenerCompania() {
-        ArrayList<Compania> comLista = new Compania().obtenerTodos();
-        comLista.forEach((com) -> {
-
-            this.imgImagen.setImage(utils.obtenerImagen(com.getCom_imagen()));
-        });
-        System.out.println(comLista);
-    }
-
+    
     protected void obtenerImagen() {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
@@ -191,5 +269,5 @@ public class FXMLCompaniaControlador extends Application implements Initializabl
             utils.mensaje("Ha ocurrido un error", ex.toString(), Alert.AlertType.ERROR);
         }
     }
-
+    
 }

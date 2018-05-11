@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +25,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -38,36 +36,32 @@ import utils.uri;
 import utils.utils;
 
 public class FXMLArticuloControlador extends Application implements Initializable {
-
+    
     @FXML
     private ImageView imgImagen;
-
+    
     @FXML
     private ComboBox<categoria> cbxCategoria;
-
+    
     @FXML
     private Label label;
-
+    
     @FXML
     private CheckBox cbxEstadoDelArticulo;
-
+    
     @FXML
-    private TreeTableColumn<?, ?> colUnidadDeMedida, colCodigo, colPrecio, colDescripcion, oolProveedor, colCategoria, colNombre, colMargenUtilidad, colUnidadDeCosto,
-            colCosto;
-
-    @FXML
-    private Button btnEliminar, btnCancelar, btnGuardar, btnImagen, btnNuevo;
-
+    private Button btnEliminar, btnGuardar, btnImagen, btnNuevo;
+    
     @FXML
     private TextField txtCosto, txtCodigo, txtUnidadDeCompra, txtMargenUtilidad, txtUnidadMedida, txtProveedor, txtDescripcion, txtNombre, txtPrecio, txtImagen;
-
+    
     private ObservableList<categoria> listacategoria;
     private categoria categoria = null;
-
+    
     public static void main(String[] args) {
         launch(args);
     }
-
+    
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.ARTICULO));
@@ -76,18 +70,21 @@ public class FXMLArticuloControlador extends Application implements Initializabl
         stage.setScene(scene);
         stage.show();
     }
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.txtImagen.setEditable(false);
+        this.imgImagen.setImage(new Image(FXMLUsuarioControlador.class.getResourceAsStream("/imagen/imagen.jpg")));
         this.cbxCategoria.getSelectionModel().getSelectedItem();
         this.listacategoria = FXCollections.observableArrayList();
         this.eventoBoton();
         this.llenarComboBox();
-
+        utils.crearArchivo();
+        
     }
-
+    
     private Boolean validarCampos() {
-        if (this.categoria == null
+        return !(this.categoria == null
                 || this.txtCosto.getText().equals("")
                 || this.txtUnidadDeCompra.getText().equals("")
                 || this.txtMargenUtilidad.getText().equals("")
@@ -95,16 +92,10 @@ public class FXMLArticuloControlador extends Application implements Initializabl
                 || this.txtProveedor.getText().equals("")
                 || this.txtDescripcion.getText().equals("")
                 || this.txtNombre.getText().equals("")
-                || this.txtPrecio.getText().equals("")) {
-
-            return false;
-        }else
-        {
-            return true;
-        }
-
+                || this.txtPrecio.getText().equals(""));
+        
     }
-
+    
     protected void PopupCategoria() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.CATEGORIA));
@@ -117,10 +108,12 @@ public class FXMLArticuloControlador extends Application implements Initializabl
             utils.mensaje("Error de popup", "Hay un error al cargar el popup\n" + ex.toString(), Alert.AlertType.ERROR);
         }
     }
-
+    
     private void guardarArticulo() {
         if (this.validarCampos()) {
             articulo art = new articulo();
+            
+            art.setArt_codigo(this.txtCodigo.getText());
             art.setCat_id(this.categoria.getCat_id());
             art.setArt_imagen(utils.convertirImagen(this.txtImagen.getText()));
             art.setArt_nombre(this.txtNombre.getText());
@@ -132,7 +125,7 @@ public class FXMLArticuloControlador extends Application implements Initializabl
             utils.mensaje("Faltan campos de llenar.", "Es necesario llenar los campos con asterisco", Alert.AlertType.ERROR);
         }
     }
-
+    
     private void eventoBoton() {
         this.btnGuardar.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
@@ -141,7 +134,7 @@ public class FXMLArticuloControlador extends Application implements Initializabl
                 event.consume();
             }
         });
-
+        
         this.btnGuardar.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
                 this.guardarArticulo();
@@ -149,10 +142,7 @@ public class FXMLArticuloControlador extends Application implements Initializabl
                 event.consume();
             }
         });
-        this.btnCancelar.setOnMouseClicked((event) -> {
-            this.PopupCategoria();
-        });
-
+        
         this.btnImagen.setOnMouseClicked((event) -> {
             this.obtenerImagen();
         });
@@ -163,9 +153,9 @@ public class FXMLArticuloControlador extends Application implements Initializabl
                 event.consume();
             }
         });
-
+        
     }
-
+    
     protected void obtenerImagen() {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
@@ -181,7 +171,7 @@ public class FXMLArticuloControlador extends Application implements Initializabl
             Logger.getLogger(FXMLArticuloControlador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     protected void llenarComboBox() {
         categoria cat = new categoria();
         if (cat.obtenerTodos().size() <= 0) {
@@ -198,7 +188,7 @@ public class FXMLArticuloControlador extends Application implements Initializabl
                 }
             });
         }
-
+        
     }
-
+    
 }
