@@ -194,11 +194,8 @@ public class utils {
         }
 
     }
-    BufferedImage bImageFromConvert = null;
 
     public static javafx.scene.image.Image obtenerImagen(byte[] arrayByte) {
-        //BufferedImage bufferedImage = ImageIO.read(obtenerInputStream(arrayByte));
-        //return SwingFXUtils.toFXImage(bufferedImage, null);
         return new javafx.scene.image.Image(obtenerInputStream(arrayByte));
 
     }
@@ -263,7 +260,7 @@ public class utils {
      *
      * @param textField objeto TextField
      */
-    public void validarNumeros(TextField textField) {
+    public static void validarNumeros(TextField textField) {
         textField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d*")) {
                 textField.setText(newValue.replaceAll("[^\\d]", ""));
@@ -276,7 +273,7 @@ public class utils {
      *
      * @param textField objeto TextField
      */
-    public void validarNumerosDecimal(TextField textField) {
+    public static void validarNumerosDecimal(TextField textField) {
         textField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d*(\\.\\d*)?")) {
                 textField.setText(oldValue);
