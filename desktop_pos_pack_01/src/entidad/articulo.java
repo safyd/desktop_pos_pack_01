@@ -172,5 +172,6 @@ public class articulo extends ORM<articulo> {
     }
 
    
+   
 
 }

@@ -216,7 +216,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <CheckBox fx:id="cbxEstadoDelArticulo" mnemonicParsing="false" text="Activo" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+                              <CheckBox fx:id="ckbEstadoDelArticulo" mnemonicParsing="false" text="Activo" GridPane.columnIndex="5" GridPane.rowIndex="8" />
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
                                  <children>
                                     <Button fx:id="btnProveedor" layoutX="13.0" layoutY="9.0" mnemonicParsing="false" styleClass="last" stylesheets="@../estilo/bootstrap.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
