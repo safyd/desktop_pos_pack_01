@@ -87,7 +87,7 @@ public class FXMLUsuarioControlador extends Application implements Initializable
 
     protected void guardarUsuario() {
         if (this.validarCampos()) {
-            if (this.confirmarContrasena(txtContrasena, txtConfirmarContrasena)) {
+            if (this.confirmarContrasena(this.txtContrasena, this.txtConfirmarContrasena)) {
                 Usuario usu = new Usuario();
                 usu.setPer_id(this.perfil.getPer_id());
                 if (!this.txtImagen.getText().equals("")) {

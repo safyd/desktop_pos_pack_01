@@ -11,23 +11,58 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import utils.uri;
 
-/**
- *
- * @author Usuario
- */
-public class FXMLCompraControlador extends Application implements Initializable{
+public class FXMLCompraControlador extends Application implements Initializable {
 
-    
-    
-    
     @FXML
-    void GuardarCompra()
-    {
+    private Button btnGuardar;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.COMPRA));
+        AnchorPane pane = loader.load();
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.accionarEvento();
+    }
+
+    private void accionarEvento() {
+        this.btnGuardar.setOnMouseClicked((event) -> {
+            if (event.getClickCount() == 1) {
+                this.guardarCompra();
+            } else {
+                event.consume();
+            }
+        });
+        this.btnGuardar.setOnKeyPressed((event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                this.guardarCompra();
+            } else {
+                event.consume();
+            }
+        });
+
+    }
+
+    private void guardarCompra() {
         Compra compra = new Compra();
-        
         compra.setCom_id(0);
         compra.setUsu_id(0);
         compra.setCaj_id(0);
@@ -38,22 +73,12 @@ public class FXMLCompraControlador extends Application implements Initializable{
         compra.setCom_costo(0.0);
         compra.setCom_descuento(0.0);
         compra.setCom_impuesto(0.0);
-        Date d1 =new Date();
+        Date d1 = new Date();
         compra.setFechaCreacion(d1);
         compra.setFechaModificacion(d1);
         compra.setUsuarioCreacion("");
         compra.setUsuarioModificacion("");
         compra.insert();
     }
-    
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

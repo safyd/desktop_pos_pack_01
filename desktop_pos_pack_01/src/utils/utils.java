@@ -1,8 +1,6 @@
 package utils;
 
 import controlador.FXMLUsuarioControlador;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,16 +16,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.WritableImage;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 public class utils {
 
@@ -196,12 +190,8 @@ public class utils {
     }
 
     public static javafx.scene.image.Image obtenerImagen(byte[] arrayByte) {
-        return new javafx.scene.image.Image(obtenerInputStream(arrayByte));
+        return new javafx.scene.image.Image(new ByteArrayInputStream(arrayByte));
 
-    }
-
-    public static InputStream obtenerInputStream(byte[] array) {
-        return new ByteArrayInputStream(array);
     }
 
     /**
