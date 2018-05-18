@@ -10,6 +10,7 @@ public class proveedor extends ORM<proveedor> {
     private Double pro_costo;
     private String pro_unidad_compra;
     private String pro_clave;
+    private String pro_nombre;
 
     public proveedor() {
         super.setClass(this);
@@ -21,17 +22,26 @@ public class proveedor extends ORM<proveedor> {
             String pro_codigo,
             Double pro_costo,
             String pro_unidad_compra,
-            String pro_clave
+            String pro_clave,
+            String pro_nombre
     ) {
         super.setClass(this);
-
         this.pro_id = pro_id;
         this.pro_descripcion = pro_descripcion;
         this.pro_codigo = pro_codigo;
         this.pro_costo = pro_costo;
         this.pro_unidad_compra = pro_unidad_compra;
         this.pro_clave = pro_clave;
+        this.pro_nombre = pro_nombre;
 
+    }
+
+    public String getPro_nombre() {
+        return pro_nombre;
+    }
+
+    public void setPro_nombre(String pro_nombre) {
+        this.pro_nombre = pro_nombre;
     }
 
     public Long getPro_id() {
