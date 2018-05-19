@@ -24,7 +24,7 @@ public class FXMLProveedorControlador extends Application implements Initializab
     private Button btnGuardar, btnCancelar, btnNuevo;
 
     @FXML
-    private TextField txtClave, txtDescripcion, txtUnidadDeCompra, txtCodigo, txtCosto;
+    private TextField txtClave, txtDescripcion, txtUnidadDeCompra, txtNombre, txtCodigo, txtCosto;
 
     @FXML
     private TreeTableColumn<?, ?> colCosto, colEliminar, colDescripcion, colClave, colEditar, colUnidadDeCompra, colCodigo;
@@ -57,7 +57,7 @@ public class FXMLProveedorControlador extends Application implements Initializab
                 event.consume();
             }
         });
-         this.btnGuardar.setOnMouseClicked((event) -> {
+        this.btnGuardar.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
                 this.guardarProveedor();
                 this.limpiarCampos();
@@ -65,9 +65,8 @@ public class FXMLProveedorControlador extends Application implements Initializab
                 event.consume();
             }
         });
-        
-         
-          this.btnCancelar.setOnMouseClicked((event) -> {
+
+        this.btnCancelar.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
                 this.limpiarCampos();
             } else {
@@ -75,8 +74,8 @@ public class FXMLProveedorControlador extends Application implements Initializab
             }
 
         });
-          
-            this.btnCancelar.setOnKeyPressed((event) -> {
+
+        this.btnCancelar.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
                 this.limpiarCampos();
             } else {
@@ -97,12 +96,12 @@ public class FXMLProveedorControlador extends Application implements Initializab
                 event.consume();
             }
         });
-         
-         
+
     }
 
     protected Boolean validarCampos() {
         return !(this.txtDescripcion.getText().equals("")
+                || this.txtNombre.getText().equals("")
                 || this.txtCodigo.getText().equals("")
                 || this.txtCosto.getText().equals("")
                 || this.txtUnidadDeCompra.getText().equals("")
@@ -113,6 +112,7 @@ public class FXMLProveedorControlador extends Application implements Initializab
     protected void limpiarCampos() {
         this.txtCodigo.setText("");
         this.txtDescripcion.setText("");
+        this.txtNombre.setText("");
         this.txtCosto.setText("");
         this.txtUnidadDeCompra.setText("");
         this.txtClave.setText("");
@@ -124,6 +124,7 @@ public class FXMLProveedorControlador extends Application implements Initializab
             proveedor pro = new proveedor();
             pro.setPro_codigo(txtCodigo.getText());
             pro.setPro_descripcion(txtDescripcion.getText());
+            pro.setPro_nombre(txtNombre.getText());
             pro.setPro_costo(Double.parseDouble(txtCosto.getText()));
             pro.setPro_unidad_compra(txtUnidadDeCompra.getText());
             pro.setPro_clave(txtClave.getText());
