@@ -19,8 +19,7 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import utils.uri;
@@ -51,7 +50,7 @@ public class FXMLPopupConsultaProveedor extends Application implements Initializ
     @FXML
     private TableView<ModeloProveedor> tblProveedor;
 
-    private ObservableList<ModeloProveedor> listaProveedor;
+    private ObservableList<ModeloProveedor> listaProveedor = FXCollections.observableArrayList();
 
     public static void main(String[] args) {
         launch(args);
@@ -60,7 +59,7 @@ public class FXMLPopupConsultaProveedor extends Application implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.cbxTamano.getItems().addAll(10, 50, 100, 150, 200);
-        this.listaProveedor = FXCollections.observableArrayList();
+
         this.llenarTabla();
         this.controladorTabla();
 
@@ -76,8 +75,7 @@ public class FXMLPopupConsultaProveedor extends Application implements Initializ
     }
 
     protected void llenarTabla() {
-        proveedor pro = new proveedor();
-        pro.obtenerTodos().forEach((t) -> {
+        new proveedor().obtenerTodos().forEach((pro) -> {
             this.listaProveedor.add(new ModeloProveedor(pro, pro.getPro_id(), pro.getPro_clave(), pro.getPro_descripcion(), pro.getPro_codigo(), pro.getPro_nombre()));
         });
 
@@ -96,22 +94,21 @@ public class FXMLPopupConsultaProveedor extends Application implements Initializ
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
                 if (ModeloProveedor.getPro_clave().contains(lowerCaseFilter)) {
-                    System.out.println("true");
                     return true;
                 } else if (ModeloProveedor.getPro_codigo().toLowerCase().contains(lowerCaseFilter)) {
-                    System.out.println("true");
                     return true;
                 } else if (ModeloProveedor.getPro_descipcion().toLowerCase().contains(lowerCaseFilter)) {
-                    System.out.println("true");
                     return true;
                 } else if (ModeloProveedor.getPro_nombre().toLowerCase().contains(lowerCaseFilter)) {
-                    System.out.println("true");
                     return true;
                 }
-                System.out.println("false");
                 return false;
             });
         });
+        SortedList<ModeloProveedor> sortedData = new SortedList<>(filtrarInformacion);
+        sortedData.comparatorProperty().bind(this.tblProveedor.comparatorProperty());
+        this.tblProveedor.setItems(sortedData);
+
     }
 
 }
