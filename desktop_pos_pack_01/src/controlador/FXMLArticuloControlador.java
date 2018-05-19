@@ -29,6 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import utils.uri;
@@ -77,7 +78,7 @@ public class FXMLArticuloControlador extends Application implements Initializabl
         this.eventoBoton();
         this.llenarComboBox();
         utils.crearArchivo();
-     
+
     }
 
     private Boolean validarCampos() {
@@ -113,8 +114,11 @@ public class FXMLArticuloControlador extends Application implements Initializabl
             AnchorPane pane = loader.load();
             Scene scene = new Scene(pane);
             Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(stage);
+            dialog.setScene(scene);
+            dialog.show();
         } catch (IOException ex) {
             utils.mensaje("Error de popup", "Hay un error al cargar el popup\n" + ex.toString(), Alert.AlertType.ERROR);
         }
@@ -168,17 +172,15 @@ public class FXMLArticuloControlador extends Application implements Initializabl
             }
         });
 
-     
-        
-          this.btnProveedor.setOnMouseClicked((event) -> {
+        this.btnProveedor.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
                 this.popupProveedor();
-            
+
             } else {
                 event.consume();
             }
         });
-        
+
         this.btnGuardar.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
                 this.guardarArticulo();
@@ -187,9 +189,7 @@ public class FXMLArticuloControlador extends Application implements Initializabl
                 event.consume();
             }
         });
-        
-        
-           
+
         this.btnImagen.setOnMouseClicked((event) -> {
             this.obtenerImagen();
         });
