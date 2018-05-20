@@ -1,5 +1,6 @@
 package controlador;
 
+import controladorPopup.FXMLPopupConsultaProveedor;
 import entidad.articulo;
 import entidad.categoria;
 
@@ -29,7 +30,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import utils.uri;
@@ -54,6 +54,7 @@ public class FXMLArticuloControlador extends Application implements Initializabl
 
     private ObservableList<categoria> listacategoria;
     private categoria categoria = null;
+    
 
     public static void main(String[] args) {
         launch(args);
@@ -77,7 +78,6 @@ public class FXMLArticuloControlador extends Application implements Initializabl
         this.listacategoria = FXCollections.observableArrayList();
         this.eventoBoton();
         this.llenarComboBox();
-        utils.crearArchivo();
 
     }
 
@@ -95,38 +95,14 @@ public class FXMLArticuloControlador extends Application implements Initializabl
 
     }
 
-    protected void popupCategoria() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.CATEGORIA));
-            AnchorPane pane = loader.load();
-            Scene scene = new Scene(pane);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ex) {
-            utils.mensaje("Error de popup", "Hay un error al cargar el popup\n" + ex.toString(), Alert.AlertType.ERROR);
-        }
-    }
-
     protected void popupProveedor() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.POPUPPROVEEDOR));
-            AnchorPane pane = loader.load();
-            Scene scene = new Scene(pane);
-            Stage stage = new Stage();
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.initOwner(stage);
-            dialog.setScene(scene);
-            dialog.show();
-        } catch (IOException ex) {
-            utils.mensaje("Error de popup", "Hay un error al cargar el popup\n" + ex.toString(), Alert.AlertType.ERROR);
-        }
+        FXMLPopupConsultaProveedor popupProveedor = new FXMLPopupConsultaProveedor();
+        popupProveedor.abrir();
+
     }
 
     private void guardarArticulo() {
         if (this.validarCampos()) {
-
             articulo art = new articulo();
             art.setArt_codigo(this.txtCodigo.getText());
             art.setCat_id(this.categoria.getCat_id());
@@ -220,22 +196,17 @@ public class FXMLArticuloControlador extends Application implements Initializabl
     }
 
     protected void llenarComboBox() {
-        categoria cat = new categoria();
-        if (cat.obtenerTodos().size() <= 0) {
-        } else {
-            this.listacategoria.clear();
-            cat.obtenerTodos().forEach((Categoria) -> {
-                this.listacategoria.add(Categoria);
-            });
-            this.cbxCategoria.setItems(this.listacategoria);
-            this.cbxCategoria.valueProperty().addListener((ObservableValue<? extends Object> observable, Object oldValue, Object newValue) -> {
-                if (this.cbxCategoria.getSelectionModel().getSelectedIndex() == -1) {
-                } else {
-                    this.categoria = listacategoria.get(cbxCategoria.getSelectionModel().getSelectedIndex());
-                }
-            });
-        }
-
+        this.listacategoria.clear();
+        new categoria().obtenerTodos().forEach((Categoria) -> {
+            this.listacategoria.add(Categoria);
+        });
+        this.cbxCategoria.setItems(this.listacategoria);
+        this.cbxCategoria.valueProperty().addListener((ObservableValue<? extends Object> observable, Object oldValue, Object newValue) -> {
+            if (this.cbxCategoria.getSelectionModel().getSelectedIndex() == -1) {
+            } else {
+                this.categoria = listacategoria.get(cbxCategoria.getSelectionModel().getSelectedIndex());
+            }
+        });
     }
 
 }
