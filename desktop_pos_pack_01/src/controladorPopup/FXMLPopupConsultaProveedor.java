@@ -106,16 +106,14 @@ public class FXMLPopupConsultaProveedor implements Initializable {
                 if (e.getClickCount() == 2) {
                     FXMLPopupConsultaProveedor.proveedor = this.tblProveedor.getSelectionModel().selectedItemProperty().getValue().getProveedor();
                     System.out.println(FXMLPopupConsultaProveedor.proveedor);
-                    this.stage.close();
-                    //System.exit(0);
-                    Platform.exit();
+                    getStage().close();
                 }
             }
         });
 
     }
 
-    protected final Stage stage = new Stage();
+    Stage stage = new Stage();
 
     public void abrir() {
         try {
@@ -128,10 +126,21 @@ public class FXMLPopupConsultaProveedor implements Initializable {
             //dialog.initOwner(this.stage);
             stage.setScene(scene);
             stage.show();
+            setStage(stage);
 
         } catch (IOException ex) {
             utils.mensaje("Error de popup", "Hay un error al cargar el popup\n" + ex.toString(), Alert.AlertType.ERROR);
         }
     }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+    
+    
 
 }
