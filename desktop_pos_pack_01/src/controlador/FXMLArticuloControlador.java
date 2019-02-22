@@ -1,24 +1,17 @@
 package controlador;
 
 import controladorPopup.FXMLPopupConsultaProveedor;
-import entidad.articulo;
-import entidad.categoria;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
+import entidad.Proveedor;
+import entidad.Articulo;
+import entidad.Categoria;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -28,20 +21,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.imageio.ImageIO;
 import utils.uri;
 import utils.utils;
 
-public class FXMLArticuloControlador extends Application implements Initializable {
+public final class FXMLArticuloControlador {
 
     @FXML
     private ImageView imgImagen;
 
     @FXML
-    private ComboBox<categoria> cbxCategoria;
+    private ComboBox<Categoria> cbxCategoria;
 
     @FXML
     private CheckBox ckbEstadoDelArticulo;
@@ -52,37 +42,45 @@ public class FXMLArticuloControlador extends Application implements Initializabl
     @FXML
     private TextField txtCosto, txtCodigo, txtUnidadDeCompra, txtMargenUtilidad, txtUnidadMedida, txtProveedor, txtDescripcion, txtNombre, txtPrecio, txtImagen;
 
-    private ObservableList<categoria> listacategoria;
-    private categoria categoria = null;
-    
+    private ObservableList<Categoria> listacategoria;
+    private Categoria categoria;
+    public Proveedor proveedor;
+    private Stage ecenario;
+    private FXMLCargaControlador fXMLCargaControlador;
 
-    public static void main(String[] args) {
-        launch(args);
+    public FXMLArticuloControlador(FXMLCargaControlador fXMLCargaControlador) {
+        try {
+            this.fXMLCargaControlador = fXMLCargaControlador;
+            this.fXMLCargaControlador.ver();
+            this.ecenario = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.ARTICULO));
+            loader.setController(this);
+            this.ecenario.setScene(new Scene(loader.load()));
+            this.txtImagen.setEditable(false);
+            this.imgImagen.setImage(new Image(FXMLUsuarioControlador.class.getResourceAsStream("/imagen/imagen.jpg")));
+            this.cbxCategoria.getSelectionModel().getSelectedItem();
+            this.listacategoria = FXCollections.observableArrayList();
+            this.eventoBoton();
+            this.llenarComboBox();
+            this.configurarCampos();
+            this.fXMLCargaControlador.cerrar();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLArticuloControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.ARTICULO));
-
-        AnchorPane pane = loader.load();
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
+    public void ver(FXMLCargaControlador fXMLCargaControlador) {
+        this.ecenario.show();
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.txtImagen.setEditable(false);
-        this.imgImagen.setImage(new Image(FXMLUsuarioControlador.class.getResourceAsStream("/imagen/imagen.jpg")));
-        this.cbxCategoria.getSelectionModel().getSelectedItem();
-        this.listacategoria = FXCollections.observableArrayList();
-        this.eventoBoton();
-        this.llenarComboBox();
-
+    public void obtenerProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+        this.txtProveedor.setText(proveedor.getPro_nombre());
     }
 
-    private Boolean validarCampos() {
-        return !(this.categoria == null
+    protected Boolean validarCampos() {
+        return !(this.proveedor == null
+                //|| this.categoria == null
                 || this.txtCodigo.getText().equals("")
                 || this.txtNombre.getText().equals("")
                 || this.txtDescripcion.getText().equals("")
@@ -95,31 +93,55 @@ public class FXMLArticuloControlador extends Application implements Initializabl
 
     }
 
+    protected void configurarCampos() {
+        utils.validarNumerosDecimal(this.txtCosto);
+
+//                txtCodigo
+//                txtUnidadDeCompra
+//                        txtMargenUtilidad
+//                        txtUnidadMedida
+//                                txtProveedor
+//                                txtDescripcion
+//                                        txtNombre
+//                                        txtPrecio;
+    }
+
     protected void popupProveedor() {
-        FXMLPopupConsultaProveedor popupProveedor = new FXMLPopupConsultaProveedor();
-        popupProveedor.abrir();
+        FXMLPopupConsultaProveedor popupProveedor = new FXMLPopupConsultaProveedor(this);
+        popupProveedor.ver();
 
     }
 
-    private void guardarArticulo() {
+    protected void guardarArticulo() {
         if (this.validarCampos()) {
-            articulo art = new articulo();
-            art.setArt_codigo(this.txtCodigo.getText());
+            Articulo art = new Articulo();
             art.setCat_id(this.categoria.getCat_id());
-            art.setArt_imagen(utils.convertirImagen(this.txtImagen.getText()));
             art.setArt_nombre(this.txtNombre.getText());
-            art.setArt_unidad_medida(utils.Encriptar(this.txtUnidadDeCompra.getText()));
+            art.setArt_unidad_medida(this.txtUnidadMedida.getText());
+            //art.setArt_unidad_compra(this.txtUnidadDeCompra.getText());
+            art.setArt_imagen(this.txtImagen.getText());
+            art.setArt_codigo(this.txtCodigo.getText());
             art.setArt_precio(Double.parseDouble(this.txtPrecio.getText()));
+            art.setArt_descripcion(this.txtDescripcion.getText());
             art.setArt_nuevo_costo(Double.parseDouble(this.txtCosto.getText()));
+            art.setArt_ultimo_costo(Double.parseDouble(this.txtCosto.getText()));
+            art.setArt_nueva_existencia(0.0);
+            art.setArt_ultima_existencia(0.0);
+            art.setArt_activo(utils.esSeleccionado(this.ckbEstadoDelArticulo));
+            //-------------------------------------------------------//
+            art.setFechaCreacion(utils.obtenerFechaTimeStamp());
+            art.setFechaModificacion(utils.obtenerFechaTimeStamp());
+            art.setUsuarioCreacion("Ejemplo");
+            art.setUsuarioModificacion("Ejemplo");
+            //-------------------------------------------------------//
             art.setArt_proveedor(this.txtProveedor.getText());
-            art.setArt_nombre(this.txtNombre.getText());
 
             if (art.insert()) {
                 utils.mensaje("Registro exitoso.", "El articulo ha sido registrado con exito.", Alert.AlertType.CONFIRMATION);
+                this.limpiarCampos();
             } else {
                 utils.mensaje("Error de registro.", "El articulo no se registro correctamente.", Alert.AlertType.ERROR);
             }
-
         } else {
             utils.mensaje("Faltan campos de llenar.", "Es necesario llenar los campos con asterisco", Alert.AlertType.ERROR);
         }
@@ -136,13 +158,18 @@ public class FXMLArticuloControlador extends Application implements Initializabl
         this.txtMargenUtilidad.setText("");
         this.txtPrecio.setText("");
         this.cbxCategoria.getSelectionModel().select(-1);
+        this.categoria = null;
+        this.proveedor = null;
+        this.txtImagen.setText("");
+        utils.obtenerImagenEstandar(this.imgImagen);
+
     }
 
-    private void eventoBoton() {
+    protected void eventoBoton() {
         this.btnGuardar.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 1) {
                 this.guardarArticulo();
-                this.limpiarCampos();
+
             } else {
                 event.consume();
             }
@@ -160,7 +187,6 @@ public class FXMLArticuloControlador extends Application implements Initializabl
         this.btnGuardar.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
                 this.guardarArticulo();
-                this.limpiarCampos();
             } else {
                 event.consume();
             }
@@ -176,35 +202,26 @@ public class FXMLArticuloControlador extends Application implements Initializabl
                 event.consume();
             }
         });
+        this.btnEliminar.setOnMouseClicked((event) -> {
+
+        });
 
     }
 
-    protected void obtenerImagen() {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-        File file = fileChooser.showOpenDialog(null);
-        try {
-            BufferedImage bufferedImage = ImageIO.read(file);
-            this.txtImagen.setText(file.toString());
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            this.imgImagen.setImage(image);
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLArticuloControlador.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void obtenerImagen() {
+        utils.obtenerImagenConDireccion(this.txtImagen, this.imgImagen);
     }
 
     protected void llenarComboBox() {
         this.listacategoria.clear();
-        new categoria().obtenerTodos().forEach((Categoria) -> {
+        new Categoria().obtenerTodos().forEach((Categoria) -> {
             this.listacategoria.add(Categoria);
         });
         this.cbxCategoria.setItems(this.listacategoria);
         this.cbxCategoria.valueProperty().addListener((ObservableValue<? extends Object> observable, Object oldValue, Object newValue) -> {
             if (this.cbxCategoria.getSelectionModel().getSelectedIndex() == -1) {
             } else {
-                this.categoria = listacategoria.get(cbxCategoria.getSelectionModel().getSelectedIndex());
+                this.categoria = this.listacategoria.get(this.cbxCategoria.getSelectionModel().getSelectedIndex());
             }
         });
     }

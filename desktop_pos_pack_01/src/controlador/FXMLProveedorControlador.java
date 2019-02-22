@@ -1,6 +1,6 @@
 package controlador;
 
-import entidad.proveedor;
+import entidad.Proveedor;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Application;
@@ -121,7 +121,7 @@ public class FXMLProveedorControlador extends Application implements Initializab
 
     protected void guardarProveedor() {
         if (this.validarCampos()) {
-            proveedor pro = new proveedor();
+            Proveedor pro = new Proveedor();
             pro.setPro_codigo(txtCodigo.getText());
             pro.setPro_descripcion(txtDescripcion.getText());
             pro.setPro_nombre(txtNombre.getText());

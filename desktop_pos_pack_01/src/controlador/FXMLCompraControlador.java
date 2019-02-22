@@ -5,42 +5,71 @@
  */
 package controlador;
 
+import Modelo.ModeloDetalleCompra;
+import controladorPopup.FXMLPopupConsultaArticulo;
 import entidad.Compra;
-import java.net.URL;
+import entidad.Proveedor;
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
-import java.util.ResourceBundle;
-import javafx.application.Application;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Supplier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import utils.uri;
 
-public class FXMLCompraControlador extends Application implements Initializable {
+public final class FXMLCompraControlador {
 
     @FXML
-    private Button btnGuardar;
+    private TreeTableColumn<ModeloDetalleCompra, Double> colPrecioUnitario, colPrecioTotal, colCantidad, colDescuento, colSubTotal, colTotal;
+    @FXML
+    private TreeTableColumn<ModeloDetalleCompra, String> colCodigo, colDescripcion;
+    @FXML
+    private TreeTableView<ModeloDetalleCompra> tblCompra;
+    @FXML
+    private TextField txtNoCompra, txtProveedor;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    @FXML
+    private DatePicker dtpFecha;
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.COMPRA));
-        AnchorPane pane = loader.load();
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
-    }
+    @FXML
+    private Button btnNuevoProveedor, btnGuardar, btnBuscarArticulo, btnCancelar;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.accionarEvento();
+    @FXML
+    private TreeTableColumn<?, ?> colModificar;
+
+    @FXML
+    private TreeTableColumn<?, ?> colRemover;
+
+    protected final Stage ecenario;
+    protected FXMLPopupConsultaArticulo fXMLPopupConsultaArticulo = null;
+
+    public FXMLCompraControlador() {
+        this.ecenario = new Stage();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.COMPRA));
+            loader.setController(this);
+            this.ecenario.setScene(new Scene(loader.load()));
+            this.accionarEvento();
+            this.completarAutomatico();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLCompraControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void accionarEvento() {
@@ -58,7 +87,39 @@ public class FXMLCompraControlador extends Application implements Initializable 
                 event.consume();
             }
         });
+        this.btnBuscarArticulo.setOnMouseClicked((event) -> {
+            if (event.getClickCount() == 1) {
+                if (this.fXMLPopupConsultaArticulo == null) {
+                    this.fXMLPopupConsultaArticulo = new FXMLPopupConsultaArticulo(this);
+                    this.fXMLPopupConsultaArticulo.ver();
+                } else {
+                    this.fXMLPopupConsultaArticulo.ver();
+                }
 
+            } else {
+                event.consume();
+            }
+        });
+
+    }
+
+    public void ver() {
+        this.ecenario.show();
+    }
+
+    public void completarAutomatico() {
+        //Crear nueva entidad
+        Proveedor pro = new Proveedor();
+        //Agregar entidad a las posibles coincidencias
+        Set<Proveedor> autoCompletions = new HashSet<>(pro.obtenerTodos());
+        SuggestionProvider<Proveedor> provider = SuggestionProvider.create(autoCompletions);
+        AutoCompletionTextFieldBinding<Proveedor> autoCompletionTextFieldBinding = new AutoCompletionTextFieldBinding<>(this.txtProveedor, provider);
+        Set<Proveedor> filteredAutoCompletions = new HashSet<>(pro.obtenerTodos());
+        provider.clearSuggestions();
+       provider.addPossibleSuggestions(filteredAutoCompletions);
+    }
+
+    private void guardarDetalleCompra() {
     }
 
     private void guardarCompra() {

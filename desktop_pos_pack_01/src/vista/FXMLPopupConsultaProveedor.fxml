@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="anpPopup" prefHeight="400.0" prefWidth="476.0" stylesheets="@../estilo/bootstrap.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladorPopup.FXMLPopupConsultaProveedor">
+<AnchorPane id="AnchorPane" fx:id="anpPopup" prefHeight="400.0" prefWidth="476.0" stylesheets="@../estilo/bootstrap.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="238.0" layoutY="118.0" prefHeight="50.0" style="-fx-background-color: #088A08;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -98,7 +98,7 @@
             </GridPane>
             <TableView fx:id="tblProveedor" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
               <columns>
-                <TableColumn fx:id="colClave" prefWidth="75.0" text="Calve" />
+                <TableColumn fx:id="colClave" minWidth="-1.0" prefWidth="-1.0" text="Calve" />
                 <TableColumn fx:id="colCodigo" prefWidth="75.0" text="Código" />
                   <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
                   <TableColumn fx:id="colDescripcion" prefWidth="75.0" text="Descripción" />

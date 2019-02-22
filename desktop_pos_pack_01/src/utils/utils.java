@@ -1,6 +1,9 @@
 package utils;
 
+import controlador.FXMLArticuloControlador;
 import controlador.FXMLUsuarioControlador;
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,14 +16,25 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 
 public class utils {
@@ -269,6 +283,98 @@ public class utils {
                 textField.setText(oldValue);
             }
         });
+    }
+
+    /**
+     * Este método limitá el uso de caracteres no números con decimal ingresados
+     *
+     * @return Regresa estructura fecha a tipo y fecha
+     */
+    public static Timestamp obtenerFechaTimeStamp() {
+        Date date = new Date();
+        java.sql.Timestamp timeStamDate = new Timestamp(date.getTime());
+        return timeStamDate;
+    }
+
+    /**
+     * Este método muestra la imagen en su diferente formato (JPG y PNG)
+     * agregando la dirección de la misma.
+     *
+     * @param textField
+     * @param imageView
+     */
+    public static void obtenerImagenConDireccion(TextField textField, ImageView imageView) {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        File file = fileChooser.showOpenDialog(null);
+        try {
+            BufferedImage bufferedImage = ImageIO.read(file);
+            textField.setText(file.toString());
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            imageView.setImage(image);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLArticuloControlador.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }
+
+    /**
+     * Este método obtiene la dirección de la imagen en los diferentes formatos
+     * (JPG y PNG).
+     *
+     * @return Regresa la dirección de la imagen seleccionada
+     */
+    public static String urlImagen() {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        File file = fileChooser.showOpenDialog(null);
+        return file.toString();
+    }
+
+    /**
+     * Este método obtiene la imagen estandar desiganda por el sistema
+     *
+     * @param imageView
+     */
+    public static void obtenerImagenEstandar(ImageView imageView) {
+        File file = new File("/imagen/imagen.jpg");
+        Image image = new Image(file.toURI().toString());
+        imageView.setImage(image);
+    }
+
+    /**
+     * Este método crea un predictor de texto con la entidad, el campo  
+    *
+     * @param entidad
+     * @param txtField
+     */
+  
+
+    /**
+     * Este método valida modulo por licencia
+     *
+     * @return Valida la estructura de credencíal y licencia existente
+     */
+    public static Boolean obtenerAcceso() {
+        return true;
+
+    }
+
+    public static ArrayList<Object> accesoPorModulo() {
+
+        return new ArrayList<>();
+    }
+
+    public static Integer esSeleccionado(CheckBox checkBox) {
+        if (checkBox.isSelected()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

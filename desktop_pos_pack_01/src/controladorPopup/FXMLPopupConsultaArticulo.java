@@ -1,9 +1,17 @@
 package controladorPopup;
 
+import Modelo.ModeloArticulo;
 import Modelo.ModeloProveedor;
 import controlador.FXMLArticuloControlador;
+import controlador.FXMLCompraControlador;
+import entidad.Articulo;
 import entidad.Proveedor;
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -29,7 +37,7 @@ import javafx.stage.Stage;
 import utils.uri;
 import utils.utils;
 
-public final class FXMLPopupConsultaProveedor {
+public final class FXMLPopupConsultaArticulo {
 
     @FXML
     private AnchorPane anpPopup;
@@ -38,10 +46,13 @@ public final class FXMLPopupConsultaProveedor {
     private Label lblEstado;
 
     @FXML
-    private Button btnFiltro;
+    private TableView<ModeloArticulo> tblArticulo;
 
     @FXML
-    private TableColumn<ModeloProveedor, String> colDescripcion, colCodigo, colClave, colNombre;
+    private TableColumn<ModeloArticulo, String> colProveedor, colDescripcion, colCodigo, colCosto;
+
+    @FXML
+    private Button btnFiltro;
 
     @FXML
     private Pagination pgnPaginas;
@@ -52,18 +63,15 @@ public final class FXMLPopupConsultaProveedor {
     @FXML
     private ComboBox<Integer> cbxTamano;
 
-    @FXML
-    public TableView<ModeloProveedor> tblProveedor;
-
-    private final ObservableList<ModeloProveedor> listaProveedor = FXCollections.observableArrayList();
+    private final ObservableList<ModeloArticulo> listaArticulos = FXCollections.observableArrayList();
     protected final Stage ecenario;
-    private final FXMLArticuloControlador fXMLArticuloControlador;
+    private final FXMLCompraControlador fXMLCompraControlador;
 
-    public FXMLPopupConsultaProveedor(FXMLArticuloControlador fXMLArticuloControlador) {
+    public FXMLPopupConsultaArticulo(FXMLCompraControlador fXMLCompraControlador) {
         this.ecenario = new Stage();
-        this.fXMLArticuloControlador = fXMLArticuloControlador;
+        this.fXMLCompraControlador = fXMLCompraControlador;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.POPUPPROVEEDOR));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.POPUPARTICULO));
             loader.setController(this);
             this.ecenario.initModality(Modality.APPLICATION_MODAL);
             this.ecenario.setScene(new Scene(loader.load()));
@@ -71,55 +79,54 @@ public final class FXMLPopupConsultaProveedor {
             this.llenarTabla();
             this.controladorTabla();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLPopupConsultaProveedor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLPopupConsultaArticulo.class.getName()).log(Level.SEVERE, null, ex);
             utils.mensaje("Error de popup", "Hay un error al cargar el popup\n" + ex.toString(), Alert.AlertType.ERROR);
         }
     }
 
     protected void llenarTabla() {
-        new Proveedor().obtenerTodos().forEach((pro) -> {
-            this.listaProveedor.add(new ModeloProveedor(pro, pro.getPro_id(), pro.getPro_clave(), pro.getPro_descripcion(), pro.getPro_codigo(), pro.getPro_nombre()));
+        new Articulo().obtenerTodos().forEach((art) -> {
+            this.listaArticulos.add(new ModeloArticulo(art.getArt_id(), art.getArt_proveedor(), art.getArt_descripcion(), art.getArt_codigo(), String.valueOf(art.getArt_nuevo_costo())));
         });
 
     }
 
     protected void controladorTabla() {
-        this.colDescripcion.setCellValueFactory(cellData -> cellData.getValue().getPro_descipcionProperty());
-        this.colCodigo.setCellValueFactory(cellData -> cellData.getValue().getPro_codigoProperty());
-        this.colClave.setCellValueFactory(cellData -> cellData.getValue().getPro_claveProperty());
-        this.colNombre.setCellValueFactory(cellData -> cellData.getValue().getPro_nombreProperty());
-        FilteredList<ModeloProveedor> filtrarInformacion = new FilteredList<>(listaProveedor, event -> true);
+        this.colDescripcion.setCellValueFactory(cellData -> cellData.getValue().getColCodigoProperty());
+        this.colCodigo.setCellValueFactory(cellData -> cellData.getValue().getColCodigoProperty());
+        this.colProveedor.setCellValueFactory(cellData -> cellData.getValue().getColProveedorProperty());
+        this.colCosto.setCellValueFactory(cellData -> cellData.getValue().getColCostoProperty());
+        FilteredList<ModeloArticulo> filtrarInformacion = new FilteredList<>(this.listaArticulos, event -> true);
         this.txtFiltro.textProperty().addListener((observable, oldValue, newValue) -> {
             filtrarInformacion.setPredicate(ModeloProveedor -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (ModeloProveedor.getPro_clave().contains(lowerCaseFilter)) {
+                if (ModeloProveedor.getColCodigo().contains(lowerCaseFilter)) {
                     return true;
-                } else if (ModeloProveedor.getPro_codigo().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (ModeloProveedor.getColDescripcion().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (ModeloProveedor.getPro_descipcion().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (ModeloProveedor.getPro_nombre().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (ModeloProveedor.getColProveedor().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
                 return false;
             });
         });
-        SortedList<ModeloProveedor> sortedData = new SortedList<>(filtrarInformacion);
-        sortedData.comparatorProperty().bind(this.tblProveedor.comparatorProperty());
-        this.tblProveedor.setItems(sortedData);
-        this.tblProveedor.setOnMouseClicked((MouseEvent e) -> {
+        SortedList<ModeloArticulo> sortedData = new SortedList<>(filtrarInformacion);
+        sortedData.comparatorProperty().bind(this.tblArticulo.comparatorProperty());
+        this.tblArticulo.setItems(sortedData);
+        this.tblArticulo.setOnMouseClicked((MouseEvent e) -> {
             if (e.getButton() == MouseButton.PRIMARY) {
                 if (e.getClickCount() == 2) {
-                    this.fXMLArticuloControlador.obtenerProveedor(this.tblProveedor.getSelectionModel().getSelectedItem().getProveedor());
+                    // this.fXMLArticuloControlador.obtenerProveedor(this.tblProveedor.getSelectionModel().getSelectedItem().getProveedor());
                     this.cerrar();
                 }
             }
         });
 
     }
+
 
     public void ver() {
         this.ecenario.showAndWait();

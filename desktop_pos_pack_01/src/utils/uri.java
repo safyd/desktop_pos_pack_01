@@ -11,11 +11,13 @@ public class uri {
     public static final String PROVEEDOR = "/vista/FXMLProveedor.fxml";
     public static final String ARTICULO = "/vista/FMXLArticulo.fxml";
     public static final String COMPANIA = "/vista/FXMLCompania.fxml";
-     
 
-      
     //popup
     public static final String CATEGORIA = "/vista/FMXLPopupCategoria.fxml";
-     public static final String POPUPPROVEEDOR = "/vista/FXMLPopupConsultaProveedor.fxml";
-      public static final String POPUPCATEGORIA = "/vista/FXMLPopupConsulaCategoria.fxml";
+    public static final String POPUPPROVEEDOR = "/vista/FXMLPopupConsultaProveedor.fxml";
+    public static final String POPUPCATEGORIA = "/vista/FXMLPopupConsulaCategoria.fxml";
+     public static final String POPUPARTICULO = "/vista/FXMLPopupConsultaArticulo.fxml";
+
+    //Carga
+    public static final String CARGA = "/vista/FMXLCarga.fxml";
 }

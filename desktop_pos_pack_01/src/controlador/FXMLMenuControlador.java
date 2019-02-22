@@ -1,78 +1,64 @@
 package controlador;
 
-import com.jfoenix.controls.JFXDrawer;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javax.imageio.ImageIO;
 import utils.uri;
 
-public class FXMLMenuControlador extends Application implements Initializable {
+public final class FXMLMenuControlador {
 
-    @FXML
-    private JFXDrawer drwMenu;
     @FXML
     private AnchorPane panelPrincipal;
     @FXML
-    private TitledPane tltPanelUsuario, tltPanelInventario, tltPanelCompra, tltPanelVenta;
-    @FXML
-    private ImageView btnMenu;
-    @FXML
-    private Button btnUsuario;
-    @FXML
-    private Circle cclIcono;
+    private ImageView imgInventario, imgArticulo, imgCompra;
+    protected final Stage ecenario;
+    FXMLArticuloControlador artControlador = null;
+    FXMLCargaControlador carControlador = null;
+    FXMLCompraControlador comControlador = null;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.controlTituloPanel();
-        InputStream a = FXMLMenuControlador.class.getResourceAsStream("/imagen/imagen.jpg");
-        //BufferedImage img = ImageIO.read(new ByteArrayInputStream(bytes));
+    //button.setGraphic ImageView.new(image("src/code/media/logo.png"))
+    //img = image("src/code/media/logo.png") button_login.setGraphic ImageView.new(img);
+    public FXMLMenuControlador() {
+        this.ecenario = new Stage();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.MENU));
+            loader.setController(this);
+            this.ecenario.setScene(new Scene(loader.load()));
+            this.accionEvento();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLMenuControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    private void controlTituloPanel() {
-        this.tltPanelUsuario.expandedProperty().addListener((observable) -> {
-            new ChangeListener<TitledPane>() {
-                @Override
-                public void changed(ObservableValue<? extends TitledPane> observable, TitledPane oldValue, TitledPane newValue) {
-                    if (newValue != null) {
-                        tltPanelInventario.setExpanded(false);
-                    }
-                }
-            };
+    protected void accionEvento() {
+        this.imgInventario.setOnMouseClicked((event) -> {
         });
-
-        this.tltPanelInventario.setExpanded(true);
-        this.tltPanelCompra.setExpanded(false);
-        this.tltPanelVenta.setExpanded(false);
-
+        this.imgArticulo.setOnMouseClicked((event) -> {
+            if (this.artControlador == null) {
+                this.artControlador = new FXMLArticuloControlador(new FXMLCargaControlador());
+                this.artControlador.ver(new FXMLCargaControlador());
+            } else {
+                this.artControlador.ver(new FXMLCargaControlador());
+            }
+        });
+        this.imgCompra.setOnMouseClicked((event) -> {
+            if (this.comControlador == null) {
+                this.comControlador = new FXMLCompraControlador();
+                this.comControlador.ver();
+            } else {
+                this.comControlador.ver();
+            }
+        });
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(uri.MENU));
-        AnchorPane pane = loader.load();
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+    public void ver() {
+        this.ecenario.show();
     }
 
 }

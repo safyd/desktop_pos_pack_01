@@ -6,7 +6,7 @@ public class Usuario extends ORM<Usuario> {
 
     private Long usu_id;
     private Integer per_id;
-    private byte[] usu_imagen;
+    private String usu_imagen;
     private String usu_usuario;
     private String usu_contrasena;
     private String usu_nombre;
@@ -17,7 +17,7 @@ public class Usuario extends ORM<Usuario> {
         super.setClass(this);
     }
 
-    public Usuario(Long usu_id, Integer per_id, byte[] usu_imagen, String usu_usuario, String usu_contrasena, String usu_nombre, String usu_apellido, String usu_sexo) {
+    public Usuario(Long usu_id, Integer per_id, String usu_imagen, String usu_usuario, String usu_contrasena, String usu_nombre, String usu_apellido, String usu_sexo) {
         this.usu_id = usu_id;
         this.per_id = per_id;
         this.usu_imagen = usu_imagen;
@@ -28,11 +28,11 @@ public class Usuario extends ORM<Usuario> {
         this.usu_sexo = usu_sexo;
     }
 
-    public byte[] getUsu_imagen() {
+    public String getUsu_imagen() {
         return usu_imagen;
     }
 
-    public void setUsu_imagen(byte[] usu_imagen) {
+    public void setUsu_imagen(String usu_imagen) {
         this.usu_imagen = usu_imagen;
     }
 

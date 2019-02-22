@@ -11,13 +11,8 @@ public class Perfil extends ORM<Perfil> {
     public Perfil() {
         super.setClass(this);
     }
- 
-    public Perfil(
-            Integer per_id,
-            String per_clave,
-            String per_descripcion
-    ) {
 
+    public Perfil(Integer per_id, String per_clave, String per_descripcion) {
         super.setClass(this);
         this.per_id = per_id;
         this.per_clave = per_clave;

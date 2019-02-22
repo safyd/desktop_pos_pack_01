@@ -8,24 +8,25 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLUsuarioControlador">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="913.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLUsuarioControlador">
     <children>
         <GridPane layoutX="71.0" layoutY="76.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="305.0" minHeight="305.0" prefHeight="305.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                             <children>
                                 <Button fx:id="btnNuevo" layoutX="4.0" layoutY="21.0" mnemonicParsing="false" style="-: ;" styleClass="primary" text="Nuevo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -35,7 +36,6 @@
                                 </Button>
                             </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                             <children>
                                 <Button fx:id="btnCancelar" layoutX="-7.0" layoutY="10.0" mnemonicParsing="false" styleClass="danger" text="Cancelar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -65,7 +65,7 @@
                         <ColumnConstraints hgrow="SOMETIMES" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                 </GridPane>
                 <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -155,17 +155,6 @@
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                                    <children>
-                                        <ComboBox fx:id="cbxPerfil" layoutX="19.0" layoutY="3.0" prefWidth="150.0" promptText="Perfil" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" />
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                    <children>
-                                        <TextField fx:id="txtNombre" layoutX="93.0" layoutY="2.0" promptText="Nombre" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    </children>
-                                </AnchorPane>
                                 <Label text="Nombre:" GridPane.rowIndex="4">
                                     <font>
                                         <Font size="14.0" />
@@ -176,36 +165,16 @@
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                    <children>
-                                        <TextField fx:id="txtApellido" layoutX="27.0" layoutY="24.0" promptText="Apellido" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                                    <children>
-                                        <ComboBox fx:id="cbxSexo" layoutY="5.0" prefWidth="150.0" promptText="Sexo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    </children>
-                                </AnchorPane>
                                 <Label text="Sexo:" GridPane.rowIndex="8">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                    <children>
-                                        <TextField fx:id="txtUsuario" layoutX="27.0" layoutY="24.0" promptText="Usuario" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    </children>
-                                </AnchorPane>
                                 <Label text="Usuario:" GridPane.rowIndex="2">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
-                                    <children>
-                                        <PasswordField fx:id="txtContrasena" layoutX="-22.0" layoutY="14.0" promptText="Contraseña" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    </children>
-                                </AnchorPane>
                                 <Label text="Contraseña:" GridPane.rowIndex="10">
                                     <font>
                                         <Font size="14.0" />
@@ -214,11 +183,6 @@
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="10">
                                     <children>
                                         <CheckBox fx:id="ckbVerContrasena" layoutX="25.0" layoutY="6.0" mnemonicParsing="false" text="ver" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
-                                    <children>
-                                        <PasswordField fx:id="txtConfirmarContrasena" layoutX="14.0" layoutY="9.0" promptText="Confirmar contraseña" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <Label text="Confirmar contraseña:" GridPane.rowIndex="12">
@@ -231,13 +195,48 @@
                                         <CheckBox fx:id="ckbVerConfirmaContrasena" layoutX="25.0" layoutY="6.0" mnemonicParsing="false" text="ver" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                    <children>
+                                        <ComboBox fx:id="cbxPerfil" layoutX="19.0" layoutY="3.0" prefWidth="150.0" promptText="Perfil" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <children>
+                                        <TextField fx:id="txtUsuario" layoutX="27.0" layoutY="24.0" promptText="Usuario" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                    <children>
+                                        <TextField fx:id="txtNombre" layoutX="93.0" layoutY="2.0" promptText="Nombre" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                    <children>
+                                        <TextField fx:id="txtApellido" layoutX="27.0" layoutY="24.0" promptText="Apellido" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                    <children>
+                                        <ComboBox fx:id="cbxSexo" layoutY="5.0" prefWidth="150.0" promptText="Sexo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                                    <children>
+                                        <PasswordField fx:id="txtContrasena" layoutX="-22.0" layoutY="14.0" promptText="Contraseña" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                                    <children>
+                                        <PasswordField fx:id="txtConfirmarContrasena" layoutX="14.0" layoutY="9.0" promptText="Confirmar contraseña" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
                             </children>
                         </GridPane>
                     </children>
                 </GridPane>
             </children>
         </GridPane>
-        <AnchorPane layoutX="24.0" layoutY="-86.0" prefHeight="50.0" style="-fx-background-color: #088A08;" stylesheets="@../estilo/bootstrap.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane layoutX="24.0" layoutY="-86.0" prefHeight="50.0" style="-fx-background-color: #CCA16B;" stylesheets="@../estilo/bootstrap.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label layoutX="14.0" layoutY="17.0" text="Usuario" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
                     <font>

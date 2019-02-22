@@ -1,20 +1,18 @@
 package Modelo;
 
-import entidad.proveedor;
-import javafx.beans.property.IntegerProperty;
+import entidad.Proveedor;
 import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class ModeloProveedor {
 
-    private proveedor proveedor;
+    private Proveedor proveedor;
     private LongProperty pro_id;
     private StringProperty pro_clave, pro_descipcion, pro_codigo, pro_nombre;
 
-    public ModeloProveedor(proveedor proveedor, Long pro_id, String pro_clave, String pro_descipcion, String pro_codigo, String pro_nombre) {
+    public ModeloProveedor(Proveedor proveedor, Long pro_id, String pro_clave, String pro_descipcion, String pro_codigo, String pro_nombre) {
         this.proveedor = proveedor;
         this.pro_id = new SimpleLongProperty(pro_id);
         this.pro_clave = new SimpleStringProperty(pro_clave);
@@ -23,11 +21,11 @@ public class ModeloProveedor {
         this.pro_nombre = new SimpleStringProperty(pro_nombre);
     }
 
-    public proveedor getProveedor() {
+    public Proveedor getProveedor() {
         return proveedor;
     }
 
-    public void setProveedor(proveedor proveedor) {
+    public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
 
